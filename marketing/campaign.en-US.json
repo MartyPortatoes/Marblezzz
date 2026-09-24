@@ -1,0 +1,54 @@
+{
+  "brand": "Marblezzz",
+  "social": {
+    "headline": "A little luck.\nAll teamwork.",
+    "subcopy": "The card-powered partnership marble game.\nMade for a little friendly rivalry.",
+    "footer": "For iPhone & iPad"
+  },
+  "panels": [
+    {
+      "id": "01-gameplay",
+      "eyebrow": "The partnership marble game",
+      "headline": "A little luck.\nAll teamwork.",
+      "subcopy": "A card-powered marble game\nfor a little friendly rivalry.",
+      "appearance": "light"
+    },
+    {
+      "id": "02-preview",
+      "eyebrow": "Think a move ahead",
+      "headline": "See your\nnext move.",
+      "subcopy": "Choose a card. Preview your path.\nThen make your move.",
+      "appearance": "dark"
+    },
+    {
+      "id": "03-solo",
+      "eyebrow": "Free solo play",
+      "headline": "Your seat.\nAnytime.",
+      "subcopy": "Play with computer players.\nCome back to your saved game.",
+      "appearance": "light"
+    },
+    {
+      "id": "04-handoff",
+      "eyebrow": "Friends around one screen",
+      "headline": "Pass. Reveal.\nPlay.",
+      "subcopy": "Keep your cards private.\nShare one device with friends.",
+      "disclosure": "Pass-and-play requires the Friends purchase.",
+      "appearance": "light"
+    },
+    {
+      "id": "05-tutorial",
+      "eyebrow": "Learn the game together",
+      "headline": "Learn the\ntable.",
+      "subcopy": "Learn the cards, the board,\nand how to play as a team.",
+      "appearance": "light"
+    },
+    {
+      "id": "06-finish",
+      "eyebrow": "A table that feels like you",
+      "headline": "Make it\nyours.",
+      "subcopy": "Find your favorite look.\nExplore optional board finishes.",
+      "disclosure": "Optional finishes sold separately.",
+      "appearance": "dark"
+    }
+  ]
+}

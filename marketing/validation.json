@@ -1,0 +1,192 @@
+{
+  "passed": true,
+  "screenshots": [
+    {
+      "file": "exports/iphone-6.9/01-gameplay.png",
+      "pixels": [
+        1320,
+        2868
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "74fa304290cd6cfac0f3010319a3a9914d4a14df2e376591a9a94cf169f07dc4"
+    },
+    {
+      "file": "exports/iphone-6.9/02-preview.png",
+      "pixels": [
+        1320,
+        2868
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "dd8b4d4f1aee073af8b395e93be6c6efd0d7644fd0ec46e31463e96687b02a40"
+    },
+    {
+      "file": "exports/iphone-6.9/03-solo.png",
+      "pixels": [
+        1320,
+        2868
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "c31589c68b7a0e37814dd27a67b87e828d6df134a43efca675ea23b86440dc3c"
+    },
+    {
+      "file": "exports/iphone-6.9/04-handoff.png",
+      "pixels": [
+        1320,
+        2868
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "d6222875713033e729e811cfc03dcd9b56709f4c791290cef6ec9ba1bf1e6511"
+    },
+    {
+      "file": "exports/iphone-6.9/05-tutorial.png",
+      "pixels": [
+        1320,
+        2868
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "5a41750ced0fe7e1a41c1f267066d6cd8297e14f5cfdb18c6d48ff357d6ac072"
+    },
+    {
+      "file": "exports/iphone-6.9/06-finish.png",
+      "pixels": [
+        1320,
+        2868
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "74b220e5bbcc1e4acfee24438bd3afdc206e6722829c908a8057651efe196fba"
+    },
+    {
+      "file": "exports/ipad-13/01-gameplay.png",
+      "pixels": [
+        2064,
+        2752
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "14e97b088aff88222a95470be78dccf0b53dec9b51695452ce2ff9a1d23a0935"
+    },
+    {
+      "file": "exports/ipad-13/02-preview.png",
+      "pixels": [
+        2064,
+        2752
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "5337b46df5ac38cca1056a111588c0db41d74ed95a707b8573c1131adebeea2b"
+    },
+    {
+      "file": "exports/ipad-13/03-solo.png",
+      "pixels": [
+        2064,
+        2752
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "aeb980a0bc93f5e40a124fa4e14a840946db3cf9ae7bf27cd24fa7606b2035fb"
+    },
+    {
+      "file": "exports/ipad-13/04-handoff.png",
+      "pixels": [
+        2064,
+        2752
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "76b33115d7c83c5fa71a3a1fd0f43a9c81b2d4a85cdd51334535a4741eb952a4"
+    },
+    {
+      "file": "exports/ipad-13/05-tutorial.png",
+      "pixels": [
+        2064,
+        2752
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "01de64e880eced7d0d208fc8d464f26ca777fa1cb55a14c25aea672a2f3c1bb0"
+    },
+    {
+      "file": "exports/ipad-13/06-finish.png",
+      "pixels": [
+        2064,
+        2752
+      ],
+      "mode": "RGB",
+      "format": "PNG",
+      "hasAlpha": false,
+      "orientation": 1,
+      "hasColorProfile": true,
+      "colorEncoding": "sRGB PNG chunk",
+      "sha256": "eb79c9cdf14342df8fd51cc1bc52c5b95d9d59012dc0ba8d9fd321191c6f51f7"
+    }
+  ],
+  "icon": {
+    "file": "icons/Marblezzz-AppIcon-1024.png",
+    "pixels": [
+      1024,
+      1024
+    ],
+    "mode": "RGB",
+    "hasAlpha": false,
+    "sha256": "503903a537ad2adcf5096c79b33b01132617a80639e431dd4c564da2336400e8"
+  },
+  "metadataLengths": {
+    "name": 9,
+    "subtitle": 28,
+    "promotionalText": 160,
+    "description": 1309,
+    "keywordsUTF8Bytes": 74
+  },
+  "errors": [],
+  "scope": "Local asset format and metadata checks; visual review is recorded separately. No ASC upload or signed-build claim."
+}

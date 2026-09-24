@@ -1,0 +1,20 @@
+{
+  "tool": "Built-in image_gen.imagegen",
+  "created": "2026-09-24",
+  "icon": {
+    "prompt": "Use case: logo-design. Asset type: final iOS App Store app icon for Marblezzz.\nCreate a modern premium evolution of the supplied existing icon. The reference is only the brand/material reference, not a layout to reproduce exactly.\nTarget: one single square 1024 x 1024 icon, full-bleed opaque background. No text or lettering. No device mockup, no outer rounded-corner mask, no inset app-tile border.\nArt direction: memorable, exceptionally polished tactile 3D tabletop game identity. Deep pine green (#273F36) full-bleed background with very subtle lighting. Four large glossy glass/enamel marbles arranged in a compact, dynamic 2 by 2 cluster: ruby red upper left, warm golden yellow upper right, sapphire blue lower left, emerald green lower right. Same four seat colors as the reference. Marbles dominate about 70% of the icon, close but distinct, with a slight diagonal rhythm and generous safe outer margins. Each sphere should read instantly at 60 pixels. Refined highlights, believable dimensional shading, soft contact shadows, beautiful solid saturated colored cores; not transparent floating bubbles.\nUnder the cluster, a single subtly beveled maple-wood cross / four-way game path supports the marbles and subtly evokes the card-powered marble board. Simplify dramatically: no tiny dots, no full board diagram, no card suits, no extra marbles, no busy wood grain, no photoreal room. Warm maple is a secondary material, pine and the four jewel colors are primary. Balanced, warm, clean, playful but grown-up. Crisp silhouette and elevated 2026 Apple-platform game quality. No lettering, watermark, white rim, exterior shadow, or canvas transparency. Entire canvas must be painted to all four square edges.",
+    "reference": "Marblezzz/Assets.xcassets/AppIcon.appiconset/Icon.png",
+    "source": "marketing/assets/icon-generated-master.png",
+    "export": "marketing/icons/Marblezzz-AppIcon-1024.png",
+    "normalization": "Uniformly resized to1024square by macOS sips; opaque RGB PNG."
+  },
+  "campaignArt": {
+    "prompt": "Use case: ads-marketing. Asset type: premium Marblezzz campaign key art, a landscape 2400 x 1350 image. The supplied image is the new app icon and defines the exact four jewel colors, pine green and maple material language.\nCreate an elegant contemporary editorial 3D tabletop still life. A beautifully crafted maple wood game-board corner sits at the lower right, a few perfectly round glossy marbles in ruby red, golden yellow, sapphire blue and emerald green form a playful diagonal across the right half. Four main marbles only, with realistic spherical volume and restrained studio reflections; a few empty round recessed board holes suggest a strategic board game. No dice, no chess pieces, no checkerboard, no hands, no people.\nThe left 55 percent is calm deep pine #273F36 negative space for typography to be typeset later. Keep all marbles and most wood on the right. Camera is a clean elevated three-quarter studio angle, wide view, intentional asymmetric composition. Soft warm light, subtle shadows, tactile premium materials, sophisticated and playful. Match the reference's rich colors and warm wood, but this is a product campaign still life, NOT a giant app icon. Full bleed opaque image, no words, lettering, logos, badge, frame or watermark. This is decorative campaign art, not an app screenshot.",
+    "reference": "marketing/assets/icon-generated-master.png",
+    "export": "marketing/assets/marble-key-art.png",
+    "purpose": "Decorative marketing art; not app UI."
+  },
+  "screenshots": {
+    "purpose": "Deterministic typesetting and composition around unchanged real app captures."
+  }
+}

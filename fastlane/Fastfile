@@ -1,0 +1,44 @@
+default_platform(:ios)
+require 'shellwords'
+ENV['LANG'] = 'en_US.UTF-8'
+ENV['LC_ALL'] = 'en_US.UTF-8'
+
+platform :ios do
+  def marblezzz_api_key
+    %w[ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_PATH APPLE_TEAM_ID].each do |name|
+      UI.user_error!("Set #{name} outside source control") if ENV[name].to_s.empty?
+    end
+    UI.user_error!('ASC_KEY_PATH is not a file') unless File.file?(ENV.fetch('ASC_KEY_PATH'))
+    app_store_connect_api_key(key_id: ENV.fetch('ASC_KEY_ID'), issuer_id: ENV.fetch('ASC_ISSUER_ID'),
+      key_filepath: ENV.fetch('ASC_KEY_PATH'), duration: 1200, in_house: false)
+  end
+
+  desc 'Run the strict local release gate without uploading'
+  lane :qa_pre_asc do
+    UI.user_error!('Set QA_DESTINATION to an iOS 27 iPhone simulator') if ENV['QA_DESTINATION'].to_s.empty?
+    sh('bash', '../tools/qa/pre_asc_qa.sh', '--require-asc-key', '--destination', ENV.fetch('QA_DESTINATION'))
+  end
+
+  desc 'Create a signed App Store archive and IPA'
+  lane :archive do
+    key = marblezzz_api_key
+    get_provisioning_profile(api_key: key, app_identifier: 'com.marblezzz.app', team_id: ENV.fetch('APPLE_TEAM_ID'),
+      provisioning_name: 'Marblezzz AppStore', output_path: './build/profiles', filename: 'Marblezzz.AppStore.mobileprovision')
+    profile_name = lane_context[SharedValues::SIGH_NAME]
+    args = ["DEVELOPMENT_TEAM=#{ENV.fetch('APPLE_TEAM_ID')}", 'CODE_SIGN_STYLE=Manual',
+      'CODE_SIGN_IDENTITY=Apple Distribution', "PROVISIONING_PROFILE_SPECIFIER=#{profile_name}"].shelljoin
+    build_app(project: 'Marblezzz.xcodeproj', scheme: 'Marblezzz', configuration: 'Release', clean: true,
+      output_directory: './build', output_name: 'Marblezzz.ipa', export_method: 'app-store', xcargs: args,
+      export_options: { signingStyle: 'manual', signingCertificate: 'Apple Distribution',
+        teamID: ENV.fetch('APPLE_TEAM_ID'), provisioningProfiles: { 'com.marblezzz.app' => profile_name } })
+  end
+
+  desc 'Run strict QA, archive, and upload Marblezzz to TestFlight'
+  lane :beta_checked do
+    qa_pre_asc
+    archive
+    upload_to_testflight(api_key: marblezzz_api_key, app_identifier: 'com.marblezzz.app',
+      ipa: './build/Marblezzz.ipa', skip_waiting_for_build_processing: false,
+      distribute_external: false, changelog: 'Initial Marblezzz test build. Test solo games, private pass-and-play, Game Center invitations and turns, purchase and restore flows, and layouts on iPhone and iPad.')
+  end
+end

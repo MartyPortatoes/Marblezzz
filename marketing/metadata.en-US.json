@@ -1,0 +1,172 @@
+{
+  "locale": "en-US",
+  "status": "draft_for_review_not_uploaded",
+  "appStore": {
+    "name": "Marblezzz",
+    "subtitle": "A little luck. All teamwork.",
+    "promotionalText": "A card-powered marble game for a little friendly rivalry. Play solo free, plan every move, and race home with your partner. Friends play is a separate purchase.",
+    "description": "Race home together in a card-powered marble game made for friendly rivalry.\n\nPick a card, preview your move, and look out for your partner. Pass opponents, send them back to the start, or switch places with a jack. Bring your own five marbles home, then help your partner finish the job.\n\nA SEAT AT THE TABLE\nPlay solo for free, even offline, with Easy or Standard computer players. Follow ten short lessons to learn the rules. Save your solo or pass-and-play game and return to it on the same device.\n\nROOM FOR FRIENDS\nThe one-time Friends purchase unlocks pass-and-play and private online games through Apple Game Center. Play with two to four people in total, including you; computers fill the remaining seats. Pass-and-play keeps each hand hidden until its player is ready.\n\nA FINISH THAT FEELS LIKE YOU\nOriginal maple is included. Optional Midnight walnut and Coastal oak theme packs change the board, marble finish, and card-back color together. Cosmetics never affect the rules or unlock Friends access.\n\nFriends access is required for each online player. One Friends purchase covers everyone sharing a device for pass-and-play. Cosmetic theme packs are separate purchases. Online play requires Game Center and an internet connection.\n\nMade for iPhone and iPad. No advertising or third-party analytics.",
+    "keywords": "board,marbles,cards,teamwork,partners,strategy,offline,tabletop,turn based",
+    "supportURL": "https://martyportatoes.github.io/Marblezzz/support/",
+    "privacyPolicyURL": "https://martyportatoes.github.io/Marblezzz/privacy/",
+    "marketingURL": "https://martyportatoes.github.io/Marblezzz/"
+  },
+  "lengthChecks": {
+    "name": {
+      "characters": 9,
+      "maximum": 30
+    },
+    "subtitle": {
+      "characters": 28,
+      "maximum": 30
+    },
+    "promotionalText": {
+      "characters": 160,
+      "maximum": 170
+    },
+    "description": {
+      "characters": 1309,
+      "maximum": 4000
+    },
+    "keywords": {
+      "utf8Bytes": 74,
+      "maximum": 100
+    }
+  },
+  "screenshotCopy": [
+    {
+      "order": 1,
+      "key": "teamwork",
+      "headline": "A little luck. All teamwork.",
+      "subcopy": "A card-powered marble game for a little friendly rivalry.",
+      "disclosure": null,
+      "captureRequirement": "Actual active game with the board and hand visible."
+    },
+    {
+      "order": 2,
+      "key": "move-preview",
+      "headline": "See your next move.",
+      "subcopy": "Choose a card. Preview your path. Then make your move.",
+      "disclosure": null,
+      "captureRequirement": "Actual selected legal move with its path preview visible."
+    },
+    {
+      "order": 3,
+      "key": "solo",
+      "headline": "Your seat. Anytime.",
+      "subcopy": "Play with computer players. Come back to your saved game.",
+      "disclosure": null,
+      "captureRequirement": "Actual home screen with Resume solo, showing access to the saved local solo game."
+    },
+    {
+      "order": 4,
+      "key": "pass-and-play",
+      "headline": "Pass. Reveal. Play.",
+      "subcopy": "Keep your cards private. Share one device with friends.",
+      "disclosure": "Pass-and-play requires the Friends purchase.",
+      "captureRequirement": "Actual private handoff with fictional or default player names."
+    },
+    {
+      "order": 5,
+      "key": "learn",
+      "headline": "Learn the table.",
+      "subcopy": "Learn the cards, the board, and how to play as a team.",
+      "disclosure": null,
+      "captureRequirement": "Actual tutorial lesson; do not depict an interactive tutorial game that does not exist."
+    },
+    {
+      "order": 6,
+      "key": "finishes",
+      "headline": "Make it yours.",
+      "subcopy": "Find your favorite look. Explore optional board finishes.",
+      "disclosure": "Optional finishes sold separately.",
+      "captureRequirement": "Actual app using or presenting the named theme; theme components are a bundle, not separate selectors."
+    }
+  ],
+  "assetManifest": {
+    "status": "validated_local_exports",
+    "iphone69": {
+      "targetPixels": [
+        1320,
+        2868
+      ],
+      "format": "opaque PNG",
+      "files": [
+        "marketing/exports/iphone-6.9/01-gameplay.png",
+        "marketing/exports/iphone-6.9/02-preview.png",
+        "marketing/exports/iphone-6.9/03-solo.png",
+        "marketing/exports/iphone-6.9/04-handoff.png",
+        "marketing/exports/iphone-6.9/05-tutorial.png",
+        "marketing/exports/iphone-6.9/06-finish.png"
+      ],
+      "directory": "marketing/exports/iphone-6.9"
+    },
+    "ipad13": {
+      "targetPixels": [
+        2064,
+        2752
+      ],
+      "format": "opaque PNG",
+      "files": [
+        "marketing/exports/ipad-13/01-gameplay.png",
+        "marketing/exports/ipad-13/02-preview.png",
+        "marketing/exports/ipad-13/03-solo.png",
+        "marketing/exports/ipad-13/04-handoff.png",
+        "marketing/exports/ipad-13/05-tutorial.png",
+        "marketing/exports/ipad-13/06-finish.png"
+      ],
+      "directory": "marketing/exports/ipad-13"
+    },
+    "iconProposal": {
+      "targetPixels": [
+        1024,
+        1024
+      ],
+      "format": "opaque PNG",
+      "imageFile": "marketing/icons/Marblezzz-AppIcon-1024.png",
+      "assetCatalogPackage": "marketing/icons/Marblezzz.appiconset",
+      "replacesCurrentAppIcon": true
+    },
+    "pathBase": "repository_root",
+    "supportingArtwork": {
+      "generationLog": "marketing/assets/generation-prompts.json",
+      "keyArt": "marketing/assets/marble-key-art.png",
+      "note": "Decorative generated artwork; interface content comes from actual app captures."
+    },
+    "previews": {
+      "directory": "marketing/previews",
+      "files": [
+        "marketing/previews/contact-ipad.png",
+        "marketing/previews/contact-iphone.png",
+        "marketing/exports/social-1600x900.png"
+      ],
+      "socialTargetPixels": [
+        1600,
+        900
+      ]
+    },
+    "validationFile": "marketing/validation.json",
+    "layoutManifest": "marketing/campaign.en-US.json",
+    "captureProvenance": [
+      "marketing/source-captures/iphone/provenance.json",
+      "marketing/source-captures/ipad/provenance.json"
+    ],
+    "visuallyReviewedAt": "2026-09-24T03:15:03.413877+00:00"
+  },
+  "editorialNotes": [
+    "Only appStore field values are listing copy. Do not upload editorial notes or this manifest as customer-facing text.",
+    "The online-play sentence describes implemented functionality and is conditional on passing the existing real Game Center release gates before publication.",
+    "Do not claim cross-device sync for solo/pass-and-play saves, server-enforced anti-cheat, proven live multiplayer, or reliable timeout substitution.",
+    "Friends Family Sharing must be configured and verified in App Store Connect before promoting it.",
+    "Provide publisher identity, support contact, support URL, privacy policy URL, and actual App Store Connect product configuration before submission.",
+    "The new icon is integrated into the app asset catalog. Validate it in a signed candidate build before upload."
+  ],
+  "officialSources": {
+    "appMetadata": "https://developer.apple.com/help/app-store-connect/reference/app-information/app-information",
+    "versionMetadata": "https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information",
+    "screenshotSpecifications": "https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications",
+    "screenshotUpload": "https://developer.apple.com/help/app-store-connect/manage-app-information/upload-app-previews-and-screenshots",
+    "appIcon": "https://developer.apple.com/documentation/xcode/configuring-your-app-icon",
+    "accurateMetadata": "https://developer.apple.com/app-store/review/guidelines/#accurate-metadata"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "identifier" : "D99D46D4-6D2C-4C29-9E55-20034B6CF155",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : true,
+      "internalID" : "101001",
+      "localizations" : [{ "description" : "Permanent pass-and-play and private online games. Each online player needs access.", "displayName" : "Friends for good", "locale" : "en_US" }],
+      "productID" : "com.marblezzz.friends",
+      "referenceName" : "Friends unlock",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "101002",
+      "localizations" : [{ "description" : "A dark walnut board, luminous marbles, and a plum card back. Appearance only.", "displayName" : "Midnight walnut", "locale" : "en_US" }],
+      "productID" : "com.marblezzz.walnut",
+      "referenceName" : "Walnut appearance pack",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "101003",
+      "localizations" : [{ "description" : "A light coastal board, satin marbles, and a sea-blue card back. Appearance only.", "displayName" : "Coastal oak", "locale" : "en_US" }],
+      "productID" : "com.marblezzz.coastal",
+      "referenceName" : "Coastal appearance pack",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "",
+    "_developerTeamID" : "",
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [],
+    "_timeRate" : 0
+  },
+  "subscriptionGroups" : [],
+  "version" : { "major" : 3, "minor" : 0 }
+}
