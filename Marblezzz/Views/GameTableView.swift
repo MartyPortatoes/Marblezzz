@@ -83,12 +83,9 @@ struct GameTableView: View {
         return sources
     }
     private var selectableIDs: Set<Int> {
-        guard model.canPlay else { return [] }
-        if let source = selectedSource, selectedCard?.rank == 11 {
-            return Set(actions.filter { $0.sourceID == source }.compactMap(\.targetID))
-                .union(actions.compactMap(\.sourceID))
-        }
-        return Set((selectedCard == nil ? model.legalActions : actions).compactMap(\.sourceID))
+        guard model.canPlay, let game = model.game else { return [] }
+        return Self.selectableMarbleIDs(for: selectedCard, sourceID: selectedSource, in: game,
+                                        legalActions: model.legalActions)
     }
     var body: some View {
         Group {
@@ -330,11 +327,18 @@ struct GameTableView: View {
             if selectedCard.rank == 11 { return selectedSource == nil ? "Choose one of your track marbles." : "Choose the other marble to switch with." }
             return "Choose a highlighted marble, then confirm your move."
         }
-        if selectedSource != nil { return "Choose a card for the selected marble." }
+        if let selectedSource {
+            return model.legalActions.contains(where: { $0.sourceID == selectedSource })
+                ? "Choose a card for the selected marble."
+                : "No card can move this marble right now. Choose another marble."
+        }
         return "Choose a card or marble to start your move."
     }
     private func confirmLabel(for card: Card) -> String {
         if selectedAction != nil { return "Play \(card.label)" }
+        if let selectedSource, !actions.contains(where: { $0.sourceID == selectedSource }) {
+            return "Choose another card or marble"
+        }
         return card.rank == 11 && selectedSource != nil ? "Choose a marble to switch with" : "Choose a marble"
     }
     private func actionDescription(_ action: GameAction, _ game: GameState) -> String {
@@ -358,6 +362,35 @@ struct GameTableView: View {
         guard card.rank != 11 else { return nil }
         return legalActions.first { $0.card == card && $0.sourceID == sourceID }
     }
+    private static func controllableMarbleIDs(in game: GameState) -> Set<Int> {
+        let controlledSeat = game.controlledSeat(for: game.activeSeat)
+        return Set(game.marbles.filter { $0.owner == controlledSeat && $0.position != .home(4) }.map(\.id))
+    }
+    static func selectableMarbleIDs(for card: Card?, sourceID: Int?, in game: GameState,
+                                    legalActions: [GameAction]) -> Set<Int> {
+        let sources = controllableMarbleIDs(in: game)
+        guard let card, card.rank == 11, let sourceID else { return sources }
+        let targets = legalActions.filter { $0.card == card && $0.sourceID == sourceID }.compactMap(\.targetID)
+        return sources.union(targets)
+    }
+    static func selection(afterTapping id: Int, card: Card?, sourceID: Int?, in game: GameState,
+                          legalActions: [GameAction])
+        -> (card: Card?, sourceID: Int, action: GameAction?)? {
+        if let card, card.rank == 11, let sourceID,
+           let swap = legalActions.first(where: { $0.card == card && $0.sourceID == sourceID && $0.targetID == id }) {
+            return (card, sourceID, swap)
+        }
+        guard controllableMarbleIDs(in: game).contains(id) else { return nil }
+        guard let card else { return (nil, id, nil) }
+        if card.rank == 11 {
+            let canSwap = legalActions.contains { $0.card == card && $0.sourceID == id }
+            return (canSwap ? card : nil, id, nil)
+        }
+        if let action = action(for: card, sourceID: id, legalActions: legalActions) {
+            return (card, id, action)
+        }
+        return (nil, id, nil)
+    }
     static func impliedSelection(for card: Card, legalActions: [GameAction]) -> (sourceID: Int, action: GameAction?)? {
         guard card.rank != 1, card.rank != 13 else { return nil }
         let choices = legalActions.filter { $0.card == card && $0.sourceID != nil }
@@ -367,18 +400,13 @@ struct GameTableView: View {
         return (sourceID, action)
     }
     private func selectMarble(_ id: Int) {
-        guard model.canPlay else { return }
-        if selectedCard == nil {
-            guard model.legalActions.contains(where: { $0.sourceID == id }) else { return }
-            selectedSource = id
-            selectedAction = nil
-            return
-        }
-        if selectedCard?.rank == 11 {
-            if let source = selectedSource, let action = actions.first(where: { $0.sourceID == source && $0.targetID == id }) {
-                selectedAction = action
-            } else if actions.contains(where: { $0.sourceID == id }) { selectedSource = id; selectedAction = nil }
-        } else if let action = actions.first(where: { $0.sourceID == id }) { selectedSource = id; selectedAction = action }
+        guard model.canPlay, let game = model.game,
+              let selection = Self.selection(afterTapping: id, card: selectedCard, sourceID: selectedSource,
+                                             in: game, legalActions: model.legalActions) else { return }
+        selectedCard = selection.card
+        selectedSource = selection.sourceID
+        selectedAction = selection.action
+        moveListExpanded = false
     }
     private func clearSelection() { selectedCard = nil; selectedSource = nil; selectedAction = nil; moveListExpanded = false }
     private func result(_ session: MatchEnvelope, _ game: GameState) -> some View {

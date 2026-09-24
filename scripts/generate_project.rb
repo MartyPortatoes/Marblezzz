@@ -45,7 +45,7 @@ app.build_configurations.each do |config|
     'TARGETED_DEVICE_FAMILY' => '1,2',
     'ASSETCATALOG_COMPILER_APPICON_NAME' => 'AppIcon',
     'MARKETING_VERSION' => '1.0',
-    'CURRENT_PROJECT_VERSION' => '5',
+    'CURRENT_PROJECT_VERSION' => '6',
     'ENABLE_USER_SCRIPT_SANDBOXING' => 'YES'
   })
   config.build_settings['SWIFT_ACTIVE_COMPILATION_CONDITIONS'] = 'DEBUG' if config.name == 'Debug'

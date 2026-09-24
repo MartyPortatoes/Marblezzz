@@ -323,6 +323,44 @@ import MarblezzzCore
         XCTAssertNil(GameTableView.action(for: ace, sourceID: 5, legalActions: actions))
     }
 
+    func testSwitchingMarblesClearsCardThatCannotMoveTheNewMarble() throws {
+        let eight = Card(8), four = Card(4)
+        var game = GameState(seed: 42, dealer: .blue)
+        game.marbles[0].position = .track(3)
+        game.marbles[1].position = .track(15)
+        game.marbles[2].position = .track(28)
+        let actions = [GameAction(card: eight, kind: .move(0, 8)),
+                       GameAction(card: four, kind: .move(1, 4))]
+
+        let selectable = GameTableView.selectableMarbleIDs(for: eight, sourceID: 0, in: game, legalActions: actions)
+        XCTAssertTrue(selectable.isSuperset(of: [0, 1, 2]))
+        let selection = try XCTUnwrap(GameTableView.selection(afterTapping: 1, card: eight, sourceID: 0,
+                                                               in: game, legalActions: actions))
+        XCTAssertEqual(selection.sourceID, 1)
+        XCTAssertNil(selection.card)
+        XCTAssertNil(selection.action)
+        XCTAssertEqual(GameTableView.action(for: four, sourceID: selection.sourceID, legalActions: actions), actions[1])
+
+        let blocked = try XCTUnwrap(GameTableView.selection(afterTapping: 2, card: eight, sourceID: 0,
+                                                             in: game, legalActions: actions))
+        XCTAssertEqual(blocked.sourceID, 2)
+        XCTAssertNil(blocked.card)
+        XCTAssertNil(blocked.action)
+    }
+
+    func testSwitchingMarblesKeepsCardWhenBothCanPlayIt() throws {
+        let eight = Card(8)
+        let game = GameState(seed: 42, dealer: .blue)
+        let actions = [GameAction(card: eight, kind: .move(0, 8)),
+                       GameAction(card: eight, kind: .move(1, 8))]
+
+        let selection = try XCTUnwrap(GameTableView.selection(afterTapping: 1, card: eight, sourceID: 0,
+                                                               in: game, legalActions: actions))
+        XCTAssertEqual(selection.card, eight)
+        XCTAssertEqual(selection.sourceID, 1)
+        XCTAssertEqual(selection.action, actions[1])
+    }
+
     func testMarbleFirstJackStillNeedsASecondMarble() {
         let jack = Card(11)
         var game = GameState(seed: 42, dealer: .blue)
@@ -333,6 +371,10 @@ import MarblezzzCore
 
         XCTAssertTrue(actions.contains(GameAction(card: jack, kind: .swap(0, 5))))
         XCTAssertNil(GameTableView.action(for: jack, sourceID: 0, legalActions: actions))
+        XCTAssertTrue(GameTableView.selectableMarbleIDs(for: jack, sourceID: 0, in: game, legalActions: actions).contains(5))
+        let selection = GameTableView.selection(afterTapping: 5, card: jack, sourceID: 0, in: game, legalActions: actions)
+        XCTAssertEqual(selection?.sourceID, 0)
+        XCTAssertEqual(selection?.action, GameAction(card: jack, kind: .swap(0, 5)))
     }
 
     private func unlockFriends() async throws {
