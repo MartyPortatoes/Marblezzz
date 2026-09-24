@@ -294,6 +294,31 @@ import MarblezzzCore
         XCTAssertEqual(selection.action, GameAction(card: card, kind: .move(10, 4)))
     }
 
+    func testMarbleFirstCanChooseAnEntryCard() {
+        let ace = Card(1), king = Card(13)
+        var game = GameState(seed: 42, dealer: .blue)
+        game.hands[Seat.red.rawValue] = [ace, king]
+        let actions = GameRules.legalActions(in: game)
+
+        XCTAssertEqual(GameTableView.action(for: ace, sourceID: 0, legalActions: actions),
+                       GameAction(card: ace, kind: .enter(0)))
+        XCTAssertEqual(GameTableView.action(for: king, sourceID: 0, legalActions: actions),
+                       GameAction(card: king, kind: .enter(0)))
+        XCTAssertNil(GameTableView.action(for: ace, sourceID: 5, legalActions: actions))
+    }
+
+    func testMarbleFirstJackStillNeedsASecondMarble() {
+        let jack = Card(11)
+        var game = GameState(seed: 42, dealer: .blue)
+        game.marbles[0].position = .track(3)
+        game.marbles[5].position = .track(15)
+        game.hands[Seat.red.rawValue] = [jack]
+        let actions = GameRules.legalActions(in: game)
+
+        XCTAssertTrue(actions.contains(GameAction(card: jack, kind: .swap(0, 5))))
+        XCTAssertNil(GameTableView.action(for: jack, sourceID: 0, legalActions: actions))
+    }
+
     private func unlockFriends() async throws {
         let testSession = try SKTestSession(configurationFileNamed: "Marblezzz")
         purchaseSession = testSession

@@ -13,7 +13,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "1b1f85c0ee888c0856e52f6f5c64f3e4261202c4c4ade74d19f8398f2dcc246e"
+      "sha256": "f999141d4224aff343b589f8a8a549863971a2d07963ee09baccf9a7e95674a3"
     },
     {
       "file": "exports/iphone-6.9/02-preview.png",
@@ -27,7 +27,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "c4aed7025dede1f7a26a849a08ee170f47afd57f187d8f9fae893b4e8f522bdb"
+      "sha256": "38f2346e9fd602a7169d09831be2dc9c4e73f86684f0d8ab34f9b100883507fd"
     },
     {
       "file": "exports/iphone-6.9/03-solo.png",
@@ -41,7 +41,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "77775f33b9c85f734ccda9830a6549ffa31514912852c301fdf76152fb852e33"
+      "sha256": "f4b2a9a6976bc1476a37ade151d6c2ef8a52e6d33162648281a74a3608d1712b"
     },
     {
       "file": "exports/iphone-6.9/04-handoff.png",
@@ -55,7 +55,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "ead8d9c5e0c13c43c6102b11b1518d8b7436d7c63eadcfe9a1d823106d17a797"
+      "sha256": "e2e613de7d89045730eb449ebe7587c6b197a6c23110412125055bcdef376f92"
     },
     {
       "file": "exports/iphone-6.9/05-tutorial.png",
@@ -69,7 +69,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "5d3516689b12d70d66c82e60ab6f562fb3ed77f77dd05aef4e43ac8b5b769dc2"
+      "sha256": "82cd2f594d345ee7695b5b986d555cc7adbc6f1e8a762bf78d4a3b01ddc8a0b4"
     },
     {
       "file": "exports/iphone-6.9/06-finish.png",
@@ -83,7 +83,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "d61f1846f5c5115c2b83d9802e8284606d9183b0ffc5ba4a5f70469e3f50ed7c"
+      "sha256": "d76c140beb0069218fecb5c7583db37f5c5ef8ede2001e0d76f158833d292189"
     },
     {
       "file": "exports/ipad-13/01-gameplay.png",
@@ -97,7 +97,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "f28c37e844990975f1e2eaafa50b39114c578c58174396478327b907fa018fad"
+      "sha256": "d3cb70c0e91a2dc7e900245de8add1a2c32309b0a0d67a3613c1627693249915"
     },
     {
       "file": "exports/ipad-13/02-preview.png",
@@ -111,7 +111,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "c43862b19c5270c1aeb6984e4bd06b747188121af3357356aa60cf6a27128233"
+      "sha256": "f129c0913dd0e2903734c38c61687d86aa5c63bd832fe27426d0e61f69384da6"
     },
     {
       "file": "exports/ipad-13/03-solo.png",
@@ -125,7 +125,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "945d2ef0fb615bd78c93218c5a6f563308d5733bcf2c6d54a6c9b8d9d6e4b5c7"
+      "sha256": "2edc0cac60d1c8c1d21f58deb9ccb4d69d3c316fe936369dae6639669afc736c"
     },
     {
       "file": "exports/ipad-13/04-handoff.png",
@@ -139,7 +139,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "0c24234e32a640f9ec578e0c9f2a0f492f42fed19e54f48974d0ba0d3139f20c"
+      "sha256": "6ffe03f3486cea876e5f0e5bc207d92538eb3ae59dc95c79df3e96cb5d44a01a"
     },
     {
       "file": "exports/ipad-13/05-tutorial.png",
@@ -153,7 +153,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "ffc59ed40e6b160ffec154142146611912c5ca818480a7612a1f2936dc6f8309"
+      "sha256": "af54634e79bcbaac84a2d61fa8b71ed044c035529e70547eb4bd20ff2e941cb7"
     },
     {
       "file": "exports/ipad-13/06-finish.png",
@@ -167,7 +167,7 @@
       "orientation": 1,
       "hasColorProfile": true,
       "colorEncoding": "sRGB PNG chunk",
-      "sha256": "fab950c74abbc639359bb27bbf8f02b2aed8460af59bf6947b47c808f9280dee"
+      "sha256": "4831e0123f1a98359db24115f0682568231eae55c65b9963e278cf9386faae91"
     }
   ],
   "icon": {

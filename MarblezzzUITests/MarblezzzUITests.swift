@@ -49,6 +49,42 @@ import StoreKitTest
         }
         XCTFail("The test game had no playable card.")
     }
+    func testMarbleCanBeSelectedBeforeCard() {
+        app.launch()
+        startFreshSolo()
+        XCTAssertTrue(app.buttons["marble-0"].waitForExistence(timeout: 10))
+        tapRedReserveMarble()
+        XCTAssertTrue(app.staticTexts["Choose a card for the selected marble."].exists, app.debugDescription)
+        attach("Marble selected before card")
+
+        let cards = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'card-' "))
+        for identifier in cards.allElementsBoundByIndex.map(\.identifier) {
+            tapVisible(app.buttons[identifier])
+            let confirm = app.buttons["confirm-move"]
+            if confirm.exists && confirm.isEnabled {
+                XCTAssertTrue(confirm.label.hasPrefix("Play "))
+                return
+            }
+        }
+        XCTFail("No card completed the selected marble's move.")
+    }
+    func testCardCanBeSelectedBeforeMarble() {
+        app.launch()
+        startFreshSolo()
+        XCTAssertTrue(app.buttons["marble-0"].waitForExistence(timeout: 10))
+        let cards = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'card-' "))
+        for identifier in cards.allElementsBoundByIndex.map(\.identifier) {
+            tapVisible(app.buttons[identifier])
+            let confirm = app.buttons["confirm-move"]
+            guard confirm.exists else { continue }
+            XCTAssertFalse(confirm.isEnabled)
+            tapRedReserveMarble()
+            XCTAssertTrue(confirm.isEnabled)
+            XCTAssertTrue(confirm.label.hasPrefix("Play "))
+            return
+        }
+        XCTFail("The test game had no playable card.")
+    }
     func testFriendsModeIsGated() {
         app.launch()
         app.buttons["pass-and-play"].tap()
@@ -215,6 +251,16 @@ import StoreKitTest
         }
         attach("Unreachable \(element.identifier)")
         XCTFail("Control is not reachable: \(element.identifier), frame: \(element.frame). \(app.debugDescription)")
+    }
+
+    private func tapRedReserveMarble() {
+        let board = app.staticTexts["Marble board"]
+        XCTAssertTrue(board.exists)
+        // Red marble 1 starts at board point (1.1, 1.3); the board spans 14.5 steps.
+        app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(
+            dx: board.frame.midX + (1.1 - 6) * board.frame.width / 14.5,
+            dy: board.frame.midY + (1.3 - 6) * board.frame.height / 14.5
+        )).tap()
     }
 
     private func playOneTurn() {

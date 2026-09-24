@@ -6,6 +6,8 @@ struct BoardCanvas: View {
     let marbles: [Marble]
     let theme: BoardTheme
     var highlighted: Set<Int> = []
+    var selectedMarbleID: Int?
+    var selectableIDs: Set<Int> = []
     var preview: MovePreview?
     var previewOwner: Seat = .red
     var onTap: ((Int) -> Void)?
@@ -18,11 +20,21 @@ struct BoardCanvas: View {
             rendersContinuously || scene.consumeRenderRequest()
         })
             .accessibilityRepresentation {
-                Text("Marble board").accessibilityHint("Play with the card and legal move controls. Board positions are available in Table options.")
+                VStack {
+                    Text("Marble board").accessibilityHint("Select a marble and a card in either order. Board positions are available in Table options.")
+                    if let onTap {
+                        ForEach(marbles.filter { selectableIDs.contains($0.id) }) { marble in
+                            Button("\(marble.label), \(marble.position.label)") { onTap(marble.id) }
+                                .accessibilityIdentifier("marble-\(marble.id)")
+                                .accessibilityAddTraits(selectedMarbleID == marble.id ? .isSelected : [])
+                        }
+                    }
+                }
             }
             .onAppear(perform: update)
             .onChange(of: marbles) { _, _ in update() }
             .onChange(of: highlighted) { _, _ in update() }
+            .onChange(of: selectedMarbleID) { _, _ in update() }
             .onChange(of: preview) { _, _ in update() }
             .onChange(of: theme) { _, _ in update() }
             .onChange(of: reduceMotion) { _, _ in update() }
@@ -33,7 +45,7 @@ struct BoardCanvas: View {
     }
     private func update() {
         scene.onMarbleTap = onTap
-        scene.configure(marbles: marbles, theme: theme, highlighted: highlighted, preview: preview,
+        scene.configure(marbles: marbles, theme: theme, highlighted: highlighted, selectedMarbleID: selectedMarbleID, preview: preview,
                         previewOwner: previewOwner, reduceMotion: reduceMotion || !rendersContinuously)
     }
 }
@@ -66,7 +78,17 @@ struct GameTableView: View {
         if let source = selectedSource, selectedCard?.rank == 11 {
             return Set(actions.filter { $0.sourceID == source }.compactMap(\.targetID)).union([source])
         }
-        return Set(actions.compactMap(\.sourceID))
+        var sources = Set(actions.compactMap(\.sourceID))
+        if let selectedSource { sources.insert(selectedSource) }
+        return sources
+    }
+    private var selectableIDs: Set<Int> {
+        guard model.canPlay else { return [] }
+        if let source = selectedSource, selectedCard?.rank == 11 {
+            return Set(actions.filter { $0.sourceID == source }.compactMap(\.targetID))
+                .union(actions.compactMap(\.sourceID))
+        }
+        return Set((selectedCard == nil ? model.legalActions : actions).compactMap(\.sourceID))
     }
     var body: some View {
         Group {
@@ -93,7 +115,7 @@ struct GameTableView: View {
                         if model.canPlay, let selectedCard, !actions.isEmpty {
                             Button {
                                 if let selectedAction { Task { await model.commit(selectedAction) } }
-                            } label: { Text(selectedAction == nil ? "Choose a marble" : "Play \(selectedCard.label)") }
+                            } label: { Text(confirmLabel(for: selectedCard)) }
                             .buttonStyle(PrimaryButton())
                             .disabled(selectedAction == nil)
                             .opacity(selectedAction == nil ? 0.5 : 1)
@@ -145,7 +167,8 @@ struct GameTableView: View {
         .onChange(of: model.session?.revision) { _, _ in clearSelection() }
     }
     private func board(_ game: GameState) -> some View {
-        BoardCanvas(marbles: game.marbles, theme: theme, highlighted: highlighted, preview: preview,
+        BoardCanvas(marbles: game.marbles, theme: theme, highlighted: highlighted, selectedMarbleID: selectedSource,
+                    selectableIDs: selectableIDs, preview: preview,
                     previewOwner: game.controlledSeat(for: game.activeSeat), onTap: selectMarble)
             .shadow(color: Palette.pine.opacity(0.12), radius: 8, y: 6)
     }
@@ -224,7 +247,9 @@ struct GameTableView: View {
                 let cards = game.hands[seat.rawValue]
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: cardWidth, maximum: cardWidth), spacing: 8)], spacing: 16) {
                     ForEach(cards) { card in
-                        let playable = !model.canPlay || model.legalActions.contains { $0.card == card }
+                        let playable = !model.canPlay || model.legalActions.contains {
+                            $0.card == card && (selectedSource == nil || $0.sourceID == selectedSource)
+                        }
                         Button {
                             selectCard(card, in: game)
                         } label: { CardFace(card: card, selected: selectedCard == card, playable: playable) }
@@ -299,23 +324,39 @@ struct GameTableView: View {
         if let preview { return preview.description }
         if let selectedCard {
             if actions.isEmpty { return GameRules.explanation(for: selectedCard, in: game) }
+            if let selectedSource, !actions.contains(where: { $0.sourceID == selectedSource }) {
+                return "That card cannot move the selected marble. Choose another card or marble."
+            }
             if selectedCard.rank == 11 { return selectedSource == nil ? "Choose one of your track marbles." : "Choose the other marble to switch with." }
             return "Choose a highlighted marble, then confirm your move."
         }
-        return "Choose a card to see where it can take you."
+        if selectedSource != nil { return "Choose a card for the selected marble." }
+        return "Choose a card or marble to start your move."
+    }
+    private func confirmLabel(for card: Card) -> String {
+        if selectedAction != nil { return "Play \(card.label)" }
+        return card.rank == 11 && selectedSource != nil ? "Choose a marble to switch with" : "Choose a marble"
     }
     private func actionDescription(_ action: GameAction, _ game: GameState) -> String {
         (try? GameRules.preview(action, for: PlayerObservation(state: game, seat: game.activeSeat)).description) ?? "Move"
     }
     private func selectCard(_ card: Card, in game: GameState) {
+        let source = selectedSource
         selectedCard = card
-        selectedSource = nil
         selectedAction = nil
         moveListExpanded = false
+        if let source {
+            selectedAction = Self.action(for: card, sourceID: source, legalActions: model.legalActions)
+            return
+        }
         if let selection = Self.impliedSelection(for: card, in: game, legalActions: model.legalActions) {
             selectedSource = selection.sourceID
             selectedAction = selection.action
         }
+    }
+    static func action(for card: Card, sourceID: Int, legalActions: [GameAction]) -> GameAction? {
+        guard card.rank != 11 else { return nil }
+        return legalActions.first { $0.card == card && $0.sourceID == sourceID }
     }
     static func impliedSelection(for card: Card, in game: GameState, legalActions: [GameAction]) -> (sourceID: Int, action: GameAction?)? {
         guard card.rank != 1, card.rank != 13 else { return nil }
@@ -329,6 +370,12 @@ struct GameTableView: View {
     }
     private func selectMarble(_ id: Int) {
         guard model.canPlay else { return }
+        if selectedCard == nil {
+            guard model.legalActions.contains(where: { $0.sourceID == id }) else { return }
+            selectedSource = id
+            selectedAction = nil
+            return
+        }
         if selectedCard?.rank == 11 {
             if let source = selectedSource, let action = actions.first(where: { $0.sourceID == source && $0.targetID == id }) {
                 selectedAction = action

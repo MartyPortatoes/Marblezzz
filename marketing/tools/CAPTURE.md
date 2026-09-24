@@ -57,3 +57,11 @@ portrait game layout. The app's outer game stack was made full width, and a
 fresh installation was captured again. The final source set contains the
 centered native UI. The earlier images remain only in the local comparison
 folder `/tmp/marblezzz-campaign/ipad-before-centering`.
+
+For build 4, the seven native screens were recaptured on both devices from the
+same validated seed-3 fixture after the card/marble selection update. The
+temporary capture harness waited two seconds after each transition so scroll
+indicators were absent from the iPhone previews. Both capture runs passed;
+the source images and twelve campaign exports were visually reviewed, and
+`validate_assets.py` passed. The App Store listing was not changed as part of
+this TestFlight-only update.

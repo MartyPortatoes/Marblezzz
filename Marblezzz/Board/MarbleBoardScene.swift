@@ -8,6 +8,7 @@ import MarblezzzCore
     private var theme: BoardTheme = .original
     private var initialized = false
     private var selectedIDs = Set<Int>()
+    private var selectedMarbleID: Int?
     private var preview: MovePreview?
     private var previewOwner: Seat = .red
     private var motionReduced = false
@@ -39,10 +40,10 @@ import MarblezzzCore
         defer { renderRequested = false }
         return renderRequested
     }
-    func configure(marbles: [Marble], theme: BoardTheme, highlighted: Set<Int> = [], preview: MovePreview? = nil,
+    func configure(marbles: [Marble], theme: BoardTheme, highlighted: Set<Int> = [], selectedMarbleID: Int? = nil, preview: MovePreview? = nil,
                    previewOwner: Seat = .red, reduceMotion: Bool = false) {
         let rebuild = !initialized || self.theme != theme
-        self.theme = theme; self.selectedIDs = highlighted; self.preview = preview
+        self.theme = theme; self.selectedIDs = highlighted; self.selectedMarbleID = selectedMarbleID; self.preview = preview
         self.previewOwner = previewOwner; self.motionReduced = reduceMotion
         currentMarbles = marbles
         if rebuild { textures = [:]; rebuildBoard(); initialized = true }
@@ -130,6 +131,12 @@ import MarblezzzCore
             let ring = SKShapeNode(circleOfRadius: step * 0.55)
             ring.position = location(BoardDefinition.point(for: marble))
             ring.strokeColor = .white; ring.glowWidth = motionReduced ? 0 : 2; ring.lineWidth = 2.5
+            ring.fillColor = .clear; highlightLayer.addChild(ring)
+        }
+        if let selectedMarbleID, let marble = currentMarbles.first(where: { $0.id == selectedMarbleID }) {
+            let ring = SKShapeNode(circleOfRadius: step * 0.66)
+            ring.position = location(BoardDefinition.point(for: marble))
+            ring.strokeColor = theme.woodDark; ring.lineWidth = 3.5
             ring.fillColor = .clear; highlightLayer.addChild(ring)
         }
         guard let preview else { return }
