@@ -59,7 +59,8 @@ Use the built app with Diagnostics open in Settings and two to four distinct Gam
 - [x] Publish the App Privacy declaration: Data Not Collected; verified in ASC after publisher approval.
 - [x] Capture and upload six final App Store screenshots for each required iPhone/iPad size.
 - [x] Archive signed Release and upload to TestFlight; Apple processed 1.0 (1) as VALID and ready for internal testing.
-- [ ] Configure chosen testers, collect inventor/friend feedback, and resolve findings.
+- [x] Configure private internal TestFlight access for the account holder only; one tester invited to build 1.
+- [ ] Collect inventor/friend feedback and resolve findings.
 - [ ] Submit for App Review only after all release gates pass.
 
 See [ASC_STATUS.md](ASC_STATUS.md) for the created Apple records, processed build, published website and evidence. Unchecked gates remain unverified.

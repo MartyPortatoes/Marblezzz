@@ -1,6 +1,6 @@
 # App Store Connect publication — September 24, 2026
 
-Marblezzz **1.0 (1)** has been uploaded, processed by Apple, and attached to the draft App Store version. It is ready for internal TestFlight testing. It has not been submitted to App Review or released publicly.
+Marblezzz **1.0 (1)** has been uploaded, processed by Apple, and attached to the draft App Store version. It is in private internal TestFlight testing for the account holder only; Apple reports the tester as Invited. It has not been submitted to App Review or released publicly.
 
 ## Published destinations
 
@@ -21,8 +21,9 @@ The website's home, support, privacy, stylesheet, icon, and gameplay image were 
 | App / bundle / SKU | `6815504897` / `com.marblezzz.app` / `marblezzz-ios` |
 | Version | 1.0, Prepare for Submission; manual release selected |
 | Build | `e930da14-2439-4ed0-9695-fef48b10d234`, build 1, `VALID`, `APP_STORE_ELIGIBLE` |
-| TestFlight | `READY_FOR_BETA_TESTING` internally; `READY_FOR_BETA_SUBMISSION` externally |
-| Tester delivery | No tester groups configured and no external invitations sent. Add chosen testers in TestFlight. Fastlane's generic “distributed” log does not establish tester access. |
+| TestFlight | `IN_BETA_TESTING` internally; `READY_FOR_BETA_SUBMISSION` externally |
+| Tester delivery | Private Testing internal group (`fff70a5f-12db-485c-94f2-7431a225e643`) has exactly one tester (account holder) and build 1. Invitation verified as Invited on September 24, 2026. No external group or public link exists; automatic access to future builds is disabled. |
+| Test information | English TestFlight description, feedback contact, website/privacy URLs and What to Test notes saved |
 | Export compliance | Build reports `usesNonExemptEncryption: false` |
 | Game Center | Enabled on bundle identifier and version 1.0; real multiplayer qualification still pending |
 | English listing | Name, subtitle, description, promotional text, keywords, copyright, support, marketing and privacy URLs saved |
