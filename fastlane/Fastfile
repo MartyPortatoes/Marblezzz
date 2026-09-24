@@ -56,8 +56,18 @@ platform :ios do
     archive
     upload_to_testflight(api_key: key, app_identifier: 'com.marblezzz.app',
       ipa: './build/Marblezzz.ipa', skip_waiting_for_build_processing: false,
-      distribute_external: false, groups: ['Private Testing'],
+      distribute_external: false, submit_beta_review: false, notify_external_testers: false,
+      groups: ['Private Testing'],
       changelog: ENV.fetch('TESTFLIGHT_CHANGELOG'))
+  end
+
+  desc 'Attach an already processed build to the private internal TestFlight group'
+  lane :distribute_internal_build do
+    upload_to_testflight(api_key: marblezzz_api_key, app_identifier: 'com.marblezzz.app',
+      distribute_only: true, app_platform: 'ios', app_version: '1.0',
+      build_number: ENV.fetch('TESTFLIGHT_BUILD_NUMBER'),
+      distribute_external: false, submit_beta_review: false, notify_external_testers: false,
+      groups: ['Private Testing'], changelog: ENV.fetch('TESTFLIGHT_CHANGELOG'))
   end
 
   desc 'Read the latest processed TestFlight build number for version 1.0'

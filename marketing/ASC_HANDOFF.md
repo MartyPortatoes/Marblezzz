@@ -62,3 +62,5 @@ Complete the existing [release checklist](release-checklist.md), including real 
 - The temporary capture test was removed and the Xcode project regenerated. Reusable capture and rendering tools remain in this package.
 
 On September 24, 2026, the signed 1.0 (1) build was uploaded and processed by Apple. Both six-image screenshot sets and English listing metadata are saved in App Store Connect. The website, support and privacy pages are live. See [publication status](PUBLICATION_STATUS.md) for verification and remaining device/service gates. Apple review and public App Store release have not occurred.
+
+Later that day, version 1.0 (2) was processed and added to the account holder's private TestFlight group. The twelve local screenshot exports were recaptured for the updated game table and validated, but this TestFlight update did not replace the App Store listing screenshots.

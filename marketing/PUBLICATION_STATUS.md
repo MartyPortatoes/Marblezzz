@@ -1,6 +1,6 @@
 # App Store Connect publication — September 24, 2026
 
-Marblezzz **1.0 (1)** has been uploaded, processed by Apple, and attached to the draft App Store version. It is in private internal TestFlight testing for the account holder only; Apple reports the tester as Invited. It has not been submitted to App Review or released publicly.
+Marblezzz **1.0 (2)** has been uploaded, processed by Apple, and added to the private internal TestFlight group for the account holder. The earlier build 1 remains in that group. The app has not been submitted to App Review or released publicly. This TestFlight update did not select a build for App Store submission.
 
 ## Published destinations
 
@@ -20,14 +20,14 @@ The website's home, support, privacy, stylesheet, icon, and gameplay image were 
 | Publisher / team | Matthew Robert Portelos / `V25M7FFAP2` |
 | App / bundle / SKU | `6815504897` / `com.marblezzz.app` / `marblezzz-ios` |
 | Version | 1.0, Prepare for Submission; manual release selected |
-| Build | `e930da14-2439-4ed0-9695-fef48b10d234`, build 1, `VALID`, `APP_STORE_ELIGIBLE` |
-| TestFlight | `IN_BETA_TESTING` internally; `READY_FOR_BETA_SUBMISSION` externally |
-| Tester delivery | Private Testing internal group (`fff70a5f-12db-485c-94f2-7431a225e643`) has exactly one tester (account holder) and build 1. Invitation verified as Invited on September 24, 2026. No external group or public link exists; automatic access to future builds is disabled. |
+| Build | `d0e14409-628e-4386-9b74-a86c095a68b6`, build 2, `VALID`; build 1 (`e930da14-2439-4ed0-9695-fef48b10d234`) remains available |
+| TestFlight | Build 2 is `IN_BETA_TESTING` internally; `READY_FOR_BETA_SUBMISSION` externally |
+| Tester delivery | Private Testing internal group (`fff70a5f-12db-485c-94f2-7431a225e643`) contains builds 1 and 2 and exactly one tester (account holder). Apple reports the tester as `INSTALLED`; this does not identify which build is installed. No external group or public link was created. |
 | Test information | English TestFlight description, feedback contact, website/privacy URLs and What to Test notes saved |
 | Export compliance | Build reports `usesNonExemptEncryption: false` |
 | Game Center | Enabled on bundle identifier and version 1.0; real multiplayer qualification still pending |
 | English listing | Name, subtitle, description, promotional text, keywords, copyright, support, marketing and privacy URLs saved |
-| Screenshots | Six iPhone and six iPad images; all `COMPLETE`, local MD5 checksums matched, ordered 01–06; duplicate upload-retry records removed |
+| Screenshots | The existing App Store listing has six iPhone and six iPad images previously verified `COMPLETE`. Fresh build-2 captures and twelve campaign exports passed local validation and visual review; the App Store listing images were not replaced in this TestFlight-only update. |
 | App icon | New opaque 1024-pixel artwork installed in the app and delivered with build 1 |
 | Base price | Free, USA base price verified at 0.0 |
 | Availability | 175 territories configured, including future territories; this is configuration, not public release |
@@ -50,7 +50,7 @@ Submit the first purchases with the first App Store version after service qualif
 
 ## Build evidence
 
-The strict gate ran against clean committed source **`cde37d7a83a15fa95818c39f2128ad32c10d2d0a`**. Subsequent publication documentation does not change the uploaded executable.
+Build 1's strict gate ran against clean committed source `cde37d7a83a15fa95818c39f2128ad32c10d2d0a`. Build 2's gate and signed archive ran against clean committed source **`47b734a`**. The build-2 IPA SHA-256 is `3909a084ba0bddaf7a79275e3874d008f75d32d193487280d9b9b00c28bae42e`.
 
 - Static resource, secret-file/signature, localization, listing-length and reviewed-image hash checks passed.
 - Core engine: 35 test functions passed, including 60 seeded complete-game cases.
@@ -58,9 +58,11 @@ The strict gate ran against clean committed source **`cde37d7a83a15fa95818c39f21
 - iPhone UI: all 9 tests passed in the final full run.
 - Unsigned generic iOS Release build passed.
 - Signed Release archive and IPA export passed using the Marblezzz AppStore profile.
-- `fastlane beta_checked` exited successfully after Apple reported processing complete for version 1.0, build 1.
+- Build 2 passed the strict gate, including all native unit and UI tests on the iOS 27 iPhone simulator, and the unsigned Release device build.
+- The signed build-2 archive and IPA export passed with the Marblezzz AppStore profile. Apple accepted the IPA, processed build 2 as `VALID`, and saved its What to Test notes.
+- The initial build-2 `beta_checked` run returned an error after processing because Fastlane tried to submit for external beta review when a group was specified. No external review submission was completed. The corrected distribute-only lane then added the already processed build to Private Testing; App Store Connect readback verified the build, group association, one tester, and `IN_BETA_TESTING` internal state.
 
-Final local evidence: `artifacts/pre-asc/` and `/tmp/marblezzz-pre-asc-qa/beta-checked.log`. The IPA and symbols are in ignored `build/`. Credentials, signing material and full logs are not published in the source repository. Earlier iPad and accessibility simulation evidence is recorded in [REVIEW_FIXES.md](https://github.com/MartyPortatoes/Marblezzz/blob/main/docs/REVIEW_FIXES.md).
+Build-2 local evidence: ignored `artifacts/pre-asc/` and `artifacts/testflight-build-2/`. The IPA and symbols are in ignored `build/`. Credentials, signing material and full logs are not published in the source repository. Earlier iPad and accessibility simulation evidence is recorded in [REVIEW_FIXES.md](https://github.com/MartyPortatoes/Marblezzz/blob/main/docs/REVIEW_FIXES.md).
 
 ## Remaining before App Review
 
