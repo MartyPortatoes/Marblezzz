@@ -58,8 +58,8 @@ Use the built app with Diagnostics open in Settings and two to four distinct Gam
 - [x] Complete age rating, content rights and export-compliance declarations against the shipping app.
 - [x] Publish the App Privacy declaration: Data Not Collected; verified in ASC after publisher approval.
 - [x] Capture and upload six final App Store screenshots for each required iPhone/iPad size.
-- [x] Archive signed Release and upload to TestFlight; Apple processed 1.0 builds 1 through 6 as VALID. Build 6 is in internal beta testing.
-- [x] Keep private internal TestFlight access for the account holder only; the one-tester Private Testing group contains builds 1 through 6.
+- [x] Archive signed Release and upload to TestFlight; Apple processed 1.0 builds 1 through 6 and 26.09.01 build 7 as VALID. Build 7 is in internal beta testing.
+- [x] Keep private internal TestFlight access for the account holder only; the one-tester Private Testing group contains builds 1 through 7.
 - [ ] Collect inventor/friend feedback and resolve findings.
 - [ ] Submit for App Review only after all release gates pass.
 
