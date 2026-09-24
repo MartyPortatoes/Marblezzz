@@ -18,3 +18,5 @@ artifacts/
 *.cer
 marketing/*.zip
 __pycache__/
+fastlane/report.xml
+fastlane/screenshots/

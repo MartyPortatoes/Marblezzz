@@ -1,0 +1,1 @@
+board,marbles,cards,teamwork,partners,strategy,offline,tabletop,turn based
