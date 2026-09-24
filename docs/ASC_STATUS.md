@@ -33,7 +33,7 @@ The website's home, support, privacy, stylesheet, icon, and gameplay image were 
 | Age rating | Apple's calculated rating is 4+, Brazil L, Korea All; no contest-event, wagering, chat, broad UGC or objectionable-content features declared |
 | Content rights | No third-party content declared; app artwork and native game presentation are original |
 | Publisher business readiness | Free and paid agreements, bank account, US tax form and Digital Services Act status all Active; verified in ASC without accepting new terms |
-| App Privacy | “Data Not Collected” saved; final Publish confirmation pending |
+| App Privacy | “Data Not Collected” published on September 24, 2026 after explicit publisher approval; ASC confirmed “Published a few seconds ago by Matthew Portelos” |
 
 ## In-app purchases
 

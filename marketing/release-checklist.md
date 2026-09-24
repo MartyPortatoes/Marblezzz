@@ -56,7 +56,7 @@ Use the built app with Diagnostics open in Settings and two to four distinct Gam
 - [ ] Cosmetic purchase never unlocks Friends or changes rules; revoked theme returns to Original.
 - [x] Add publisher/support contact to the release copy and publish support/privacy URLs.
 - [x] Complete age rating, content rights and export-compliance declarations against the shipping app.
-- [ ] Publish the saved App Privacy declaration after the final confirmation.
+- [x] Publish the App Privacy declaration: Data Not Collected; verified in ASC after publisher approval.
 - [x] Capture and upload six final App Store screenshots for each required iPhone/iPad size.
 - [x] Archive signed Release and upload to TestFlight; Apple processed 1.0 (1) as VALID and ready for internal testing.
 - [ ] Configure chosen testers, collect inventor/friend feedback, and resolve findings.
