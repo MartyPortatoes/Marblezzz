@@ -23,6 +23,32 @@ import StoreKitTest
         app.buttons["resume-solo"].tap()
         XCTAssertTrue(app.staticTexts["turn-title"].waitForExistence(timeout: 10))
     }
+    func testMoveConfirmationStaysVisibleWithoutScrollingToBottom() {
+        app.launch()
+        startFreshSolo()
+        let cards = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'card-'"))
+        let humanTurn = XCTNSPredicateExpectation(predicate: NSPredicate { [weak self] _, _ in
+            self?.app.staticTexts["turn-title"].label == "Your move." && cards.count > 0
+        }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [humanTurn], timeout: 20), .completed)
+        for identifier in cards.allElementsBoundByIndex.map(\.identifier) {
+            tapVisible(app.buttons[identifier])
+            let moves = app.buttons["legal-moves"]
+            guard moves.exists else { continue }
+            let confirm = app.buttons["confirm-move"]
+            XCTAssertTrue(confirm.isHittable, "The move action should be visible as soon as a playable card is selected.")
+            tapVisible(moves)
+            let move = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'move-'")).firstMatch
+            XCTAssertTrue(move.waitForExistence(timeout: 5))
+            tapVisible(move)
+            app.scrollViews["table-scroll"].swipeDown()
+            XCTAssertTrue(confirm.isEnabled)
+            XCTAssertTrue(confirm.isHittable, "The Play button should remain visible when the table is scrolled to the top.")
+            attach("Play button visible above home indicator")
+            return
+        }
+        XCTFail("The test game had no playable card.")
+    }
     func testFriendsModeIsGated() {
         app.launch()
         app.buttons["pass-and-play"].tap()

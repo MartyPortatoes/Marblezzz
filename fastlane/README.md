@@ -17,6 +17,7 @@ export QA_DESTINATION='id=your-iOS-27-iPhone-simulator-UDID'
 - `fastlane listing`: upload English metadata and the reviewed screenshots without submitting to App Review. Read back screenshot counts, order, checksums and COMPLETE state; Fastlane retries can leave duplicates even when the command succeeds.
 - `fastlane archive`: signed archive and IPA, with no upload.
 - `fastlane beta_checked`: strict gate, signed archive, and TestFlight upload. This lane does not submit to App Review or invite external testers.
+- Set `TESTFLIGHT_CHANGELOG` to the build-specific tester notes before running `beta_checked`. The lane verifies that the local build number exceeds the latest TestFlight build for version 1.0.
 
 The gate validates the current screenshot exports against their reviewed hashes. If UI changes affect a captured screen, refresh it using the Simulator and Computer Use, visually review the native and framed images, rerun `marketing/tools/validate_assets.py`, and commit the new assets and validation record before uploading.
 

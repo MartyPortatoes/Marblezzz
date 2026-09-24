@@ -45,6 +45,7 @@ struct GameTableView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @ScaledMetric(relativeTo: .title2) private var cardWidth: CGFloat = 53
     @ScaledMetric(relativeTo: .caption) private var minimumPlayerWidth: CGFloat = 74
+    @ScaledMetric(relativeTo: .caption) private var playerIconSize: CGFloat = 11
     @ScaledMetric(relativeTo: .body) private var moveListHeight: CGFloat = 180
     let theme: BoardTheme
     @State private var selectedCard: Card?
@@ -71,21 +72,39 @@ struct GameTableView: View {
         Group {
             if let session = model.session, let game = session.game {
                 GeometryReader { geometry in
-                    ScrollView {
-                        VStack(spacing: 17) {
-                            playerRow(session, game, availableWidth: geometry.size.width - 28)
-                            if geometry.size.width > geometry.size.height {
-                                HStack(alignment: .top, spacing: 26) {
-                                    board(game).frame(width: max(1, min(geometry.size.width * 0.53, geometry.size.height - 80)), height: max(1, min(geometry.size.width * 0.53, geometry.size.height - 80)))
-                                    controls(session, game).frame(maxWidth: 400)
-                                }.frame(maxWidth: .infinity)
-                            } else {
-                                board(game).frame(width: max(1, min(geometry.size.width - 28, 610)), height: max(1, min(geometry.size.width - 28, 610)))
-                                controls(session, game).frame(maxWidth: 600)
+                    VStack(spacing: 0) {
+                        ScrollView {
+                            VStack(spacing: 17) {
+                                playerRow(session, game, availableWidth: geometry.size.width - 28)
+                                if geometry.size.width > geometry.size.height {
+                                    HStack(alignment: .top, spacing: 26) {
+                                        board(game).frame(width: max(1, min(geometry.size.width * 0.53, geometry.size.height - 80)), height: max(1, min(geometry.size.width * 0.53, geometry.size.height - 80)))
+                                        controls(session, game).frame(maxWidth: 400)
+                                    }.frame(maxWidth: .infinity)
+                                } else {
+                                    board(game).frame(width: max(1, min(geometry.size.width - 28, 610)), height: max(1, min(geometry.size.width - 28, 610)))
+                                    controls(session, game).frame(maxWidth: 600)
+                                }
                             }
-                        }.padding(.horizontal, 14).padding(.top, 8).padding(.bottom, 24)
+                            .padding(.horizontal, 14).padding(.top, 8).padding(.bottom, 24)
                             .frame(maxWidth: .infinity)
-                    }.accessibilityIdentifier("table-scroll")
+                        }
+                        .accessibilityIdentifier("table-scroll")
+                        if model.canPlay, let selectedCard, !actions.isEmpty {
+                            Button {
+                                if let selectedAction { Task { await model.commit(selectedAction) } }
+                            } label: { Text(selectedAction == nil ? "Choose a marble" : "Play \(selectedCard.label)") }
+                            .buttonStyle(PrimaryButton())
+                            .disabled(selectedAction == nil)
+                            .opacity(selectedAction == nil ? 0.5 : 1)
+                            .accessibilityIdentifier("confirm-move")
+                            .frame(maxWidth: 600)
+                            .padding(.horizontal, 14)
+                            .padding(.vertical, 10)
+                            .frame(maxWidth: .infinity)
+                            .background(Palette.background)
+                        }
+                    }
                 }
             } else if model.session != nil { lobby }
         }
@@ -134,25 +153,33 @@ struct GameTableView: View {
         let columnCount = max(1, min(4, Int((min(availableWidth, 760) + 7) / (minimumPlayerWidth + 7))))
         return LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 7), count: columnCount), spacing: 7) {
             ForEach(session.settings.seats) { slot in
-                VStack(spacing: 5) {
-                    HStack(spacing: 4) {
-                        Image(systemName: slot.seat.symbol).foregroundStyle(slot.seat.color)
-                        if slot.kind == .computer { Image(systemName: "desktopcomputer").foregroundStyle(Palette.secondary) }
-                    }.font(.caption)
-                    Text(slot.name).font(.caption.weight(.semibold))
-                        .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
-                        .multilineTextAlignment(.center)
+                let playerDescription = slot.kind == .computer && !slot.name.localizedCaseInsensitiveContains("computer")
+                    ? "\(slot.name), computer" : slot.name
+                VStack(spacing: 3) {
+                    HStack(spacing: 3) {
+                        Image(systemName: slot.seat.symbol)
+                            .font(.system(size: playerIconSize, weight: .semibold))
+                            .foregroundStyle(slot.seat.color)
+                        Text(slot.name).font(.caption.weight(.semibold))
+                            .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
+                    }
+                    .multilineTextAlignment(.center)
+                    Text("with \(slot.seat.partner.name)")
+                        .font(.caption)
+                        .foregroundStyle(Palette.secondary)
+                        .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
+                        .minimumScaleFactor(0.85)
                     HStack(spacing: 5) {
                         Text("\(game.homeCount(slot.seat))/5").accessibilityLabel("\(game.homeCount(slot.seat)) marbles home")
                         Image(systemName: "rectangle.on.rectangle")
                         Text("\(game.hands[slot.seat.rawValue].count)")
                     }.font(.caption).foregroundStyle(Palette.secondary)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity).padding(.vertical, 9)
+                .frame(maxWidth: .infinity, maxHeight: .infinity).padding(.vertical, 6)
                 .background(game.activeSeat == slot.seat ? slot.seat.color.opacity(0.10) : Palette.cream.opacity(0.6), in: RoundedRectangle(cornerRadius: 13))
                 .overlay(RoundedRectangle(cornerRadius: 13).stroke(game.activeSeat == slot.seat ? slot.seat.color.opacity(0.8) : .clear, lineWidth: 1.5))
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel("\(slot.name), partners with \(slot.seat.partner.name), \(game.homeCount(slot.seat)) home, \(game.hands[slot.seat.rawValue].count) cards\(game.activeSeat == slot.seat ? ", current turn" : "")")
+                .accessibilityLabel("\(playerDescription), partners with \(slot.seat.partner.name), \(game.homeCount(slot.seat)) home, \(game.hands[slot.seat.rawValue].count) cards\(game.activeSeat == slot.seat ? ", current turn" : "")")
                 .accessibilityIdentifier("player-status-\(slot.seat.rawValue)")
             }
         }.frame(maxWidth: 760)
@@ -216,7 +243,7 @@ struct GameTableView: View {
                     } else {
                         Text(instruction(game)).font(.subheadline).foregroundStyle(Palette.secondary)
                             .multilineTextAlignment(.center).frame(minHeight: 38)
-                        if let selectedCard, !actions.isEmpty {
+                        if selectedCard != nil, !actions.isEmpty {
                             Button { moveListExpanded.toggle() } label: {
                                 HStack {
                                     Text("Legal moves · \(actions.count)")
@@ -243,11 +270,6 @@ struct GameTableView: View {
                                     }
                                 }.frame(height: moveListHeight).accessibilityIdentifier("legal-move-list")
                             }
-                            Button {
-                                if let selectedAction { Task { await model.commit(selectedAction) } }
-                            } label: { Text(selectedAction == nil ? "Choose a marble" : "Play \(selectedCard.label)") }
-                            .buttonStyle(PrimaryButton()).disabled(selectedAction == nil)
-                            .opacity(selectedAction == nil ? 0.5 : 1).accessibilityIdentifier("confirm-move")
                         }
                     }
                 } else if game.hands[seat.rawValue].isEmpty {

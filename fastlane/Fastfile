@@ -47,10 +47,23 @@ platform :ios do
 
   desc 'Run strict QA, archive, and upload Marblezzz to TestFlight'
   lane :beta_checked do
+    key = marblezzz_api_key
+    latest = latest_testflight_build_number(api_key: key, app_identifier: 'com.marblezzz.app', version: '1.0')
+    current = get_build_number(xcodeproj: 'Marblezzz.xcodeproj').to_i
+    UI.user_error!("Build #{current} must exceed TestFlight build #{latest}") unless current > latest.to_i
+    UI.user_error!('Set TESTFLIGHT_CHANGELOG for this build') if ENV['TESTFLIGHT_CHANGELOG'].to_s.empty?
     qa_pre_asc
     archive
-    upload_to_testflight(api_key: marblezzz_api_key, app_identifier: 'com.marblezzz.app',
+    upload_to_testflight(api_key: key, app_identifier: 'com.marblezzz.app',
       ipa: './build/Marblezzz.ipa', skip_waiting_for_build_processing: false,
-      distribute_external: false, changelog: 'Initial Marblezzz test build. Test solo games, private pass-and-play, Game Center invitations and turns, purchase and restore flows, and layouts on iPhone and iPad.')
+      distribute_external: false, groups: ['Private Testing'],
+      changelog: ENV.fetch('TESTFLIGHT_CHANGELOG'))
+  end
+
+  desc 'Read the latest processed TestFlight build number for version 1.0'
+  lane :asc_build do
+    latest = latest_testflight_build_number(api_key: marblezzz_api_key,
+      app_identifier: 'com.marblezzz.app', version: '1.0')
+    UI.message("Latest TestFlight build for 1.0: #{latest}")
   end
 end
