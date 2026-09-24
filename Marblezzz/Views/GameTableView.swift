@@ -226,7 +226,7 @@ struct GameTableView: View {
                     ForEach(cards) { card in
                         let playable = !model.canPlay || model.legalActions.contains { $0.card == card }
                         Button {
-                            selectedCard = card; selectedSource = nil; selectedAction = nil; moveListExpanded = false
+                            selectCard(card, in: game)
                         } label: { CardFace(card: card, selected: selectedCard == card, playable: playable) }
                         .buttonStyle(.plain).disabled(!model.canPlay)
                         .accessibilityIdentifier("card-\(card.id)")
@@ -306,6 +306,26 @@ struct GameTableView: View {
     }
     private func actionDescription(_ action: GameAction, _ game: GameState) -> String {
         (try? GameRules.preview(action, for: PlayerObservation(state: game, seat: game.activeSeat)).description) ?? "Move"
+    }
+    private func selectCard(_ card: Card, in game: GameState) {
+        selectedCard = card
+        selectedSource = nil
+        selectedAction = nil
+        moveListExpanded = false
+        if let selection = Self.impliedSelection(for: card, in: game, legalActions: model.legalActions) {
+            selectedSource = selection.sourceID
+            selectedAction = selection.action
+        }
+    }
+    static func impliedSelection(for card: Card, in game: GameState, legalActions: [GameAction]) -> (sourceID: Int, action: GameAction?)? {
+        guard card.rank != 1, card.rank != 13 else { return nil }
+        let controlledSeat = game.controlledSeat(for: game.activeSeat)
+        let onBoard = game.marbles.filter { $0.owner == controlledSeat && $0.position != .reserve }
+        guard onBoard.count == 1, let marble = onBoard.first else { return nil }
+        let choices = legalActions.filter { $0.card == card && $0.sourceID == marble.id }
+        guard !choices.isEmpty else { return nil }
+        let action = card.rank == 11 || choices.count != 1 ? nil : choices[0]
+        return (marble.id, action)
     }
     private func selectMarble(_ id: Int) {
         guard model.canPlay else { return }
