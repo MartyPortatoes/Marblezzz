@@ -4,7 +4,15 @@
 require 'xcodeproj'
 require 'fileutils'
 root = File.expand_path('..', __dir__)
-project = Xcodeproj::Project.new(File.join(root, 'Marblezzz.xcodeproj'))
+project_path = File.join(root, 'Marblezzz.xcodeproj')
+existing = Xcodeproj::Project.open(project_path)
+existing_app = existing.targets.find { |target| target.name == 'Marblezzz' }
+raise 'Marblezzz app target is missing from the checked-in project' unless existing_app
+release_settings = existing_app.build_configurations.find { |config| config.name == 'Release' }&.build_settings
+raise 'Marblezzz release version is missing' unless release_settings
+marketing_version = release_settings.fetch('MARKETING_VERSION')
+build_number = release_settings.fetch('CURRENT_PROJECT_VERSION')
+project = Xcodeproj::Project.new(project_path)
 project.root_object.attributes['LastUpgradeCheck'] = '2700'
 project.root_object.attributes['BuildIndependentTargetsInParallel'] = 'YES'
 project.build_configurations.each do |config|
@@ -44,8 +52,8 @@ app.build_configurations.each do |config|
     'SWIFT_EMIT_LOC_STRINGS' => 'YES',
     'TARGETED_DEVICE_FAMILY' => '1,2',
     'ASSETCATALOG_COMPILER_APPICON_NAME' => 'AppIcon',
-    'MARKETING_VERSION' => '1.0',
-    'CURRENT_PROJECT_VERSION' => '6',
+    'MARKETING_VERSION' => marketing_version,
+    'CURRENT_PROJECT_VERSION' => build_number,
     'ENABLE_USER_SCRIPT_SANDBOXING' => 'YES'
   })
   config.build_settings['SWIFT_ACTIVE_COMPILATION_CONDITIONS'] = 'DEBUG' if config.name == 'Debug'

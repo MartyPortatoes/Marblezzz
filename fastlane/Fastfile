@@ -3,8 +3,34 @@ skip_docs
 require 'shellwords'
 ENV['LANG'] = 'en_US.UTF-8'
 ENV['LC_ALL'] = 'en_US.UTF-8'
+require 'xcodeproj'
 
 platform :ios do
+  CALVER_RE = /\A\d{2}\.\d{2}\.\d{2}\z/
+
+  def marblezzz_version
+    get_version_number(xcodeproj: 'Marblezzz.xcodeproj', target: 'Marblezzz')
+  end
+
+  desc 'Bump YY.MM.XX for the next release and increment the build number'
+  lane :bump do |options|
+    current = marblezzz_version
+    next_build = get_build_number(xcodeproj: 'Marblezzz.xcodeproj').to_i + 1
+    today = format('%02d.%02d', Time.now.year % 100, Time.now.month)
+    current_month = current.match?(CALVER_RE) ? current.split('.')[0..1].join('.') : nil
+    month = current_month && current_month >= today ? current_month : today
+    sequence = month == current_month ? current.split('.').last.to_i + 1 : 1
+    version = options[:version] || format('%s.%02d', month, sequence)
+    UI.user_error!("Version #{version} must use YY.MM.XX") unless version.match?(CALVER_RE)
+    project = Xcodeproj::Project.open(File.expand_path('../Marblezzz.xcodeproj', __dir__))
+    app = project.targets.find { |target| target.name == 'Marblezzz' }
+    UI.user_error!('Marblezzz app target is missing') unless app
+    app.build_configurations.each { |config| config.build_settings['MARKETING_VERSION'] = version }
+    project.save
+    build = increment_build_number(xcodeproj: 'Marblezzz.xcodeproj', build_number: next_build)
+    UI.success("Marblezzz version #{version} (build #{build})")
+  end
+
   def marblezzz_api_key
     %w[ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_PATH APPLE_TEAM_ID].each do |name|
       UI.user_error!("Set #{name} outside source control") if ENV[name].to_s.empty?
@@ -38,7 +64,7 @@ platform :ios do
   lane :listing do
     sh('python3', '../tools/release/prepare_metadata.py')
     upload_to_app_store(api_key: marblezzz_api_key, app_identifier: 'com.marblezzz.app',
-      app_version: '1.0', metadata_path: './fastlane/metadata', screenshots_path: './fastlane/screenshots',
+      app_version: marblezzz_version, metadata_path: './fastlane/metadata', screenshots_path: './fastlane/screenshots',
       skip_binary_upload: true, submit_for_review: false, force: true,
       run_precheck_before_submit: false, overwrite_screenshots: false,
       copyright: '2026 Matthew Robert Portelos', primary_category: 'GAMES',
@@ -48,7 +74,7 @@ platform :ios do
   desc 'Run strict QA, archive, and upload Marblezzz to TestFlight'
   lane :beta_checked do
     key = marblezzz_api_key
-    latest = latest_testflight_build_number(api_key: key, app_identifier: 'com.marblezzz.app', version: '1.0')
+    latest = latest_testflight_build_number(api_key: key, app_identifier: 'com.marblezzz.app', version: marblezzz_version)
     current = get_build_number(xcodeproj: 'Marblezzz.xcodeproj').to_i
     UI.user_error!("Build #{current} must exceed TestFlight build #{latest}") unless current > latest.to_i
     UI.user_error!('Set TESTFLIGHT_CHANGELOG for this build') if ENV['TESTFLIGHT_CHANGELOG'].to_s.empty?
@@ -63,16 +89,17 @@ platform :ios do
   desc 'Attach an already processed build to the private internal TestFlight group'
   lane :distribute_internal_build do
     upload_to_testflight(api_key: marblezzz_api_key, app_identifier: 'com.marblezzz.app',
-      distribute_only: true, app_platform: 'ios', app_version: '1.0',
+      distribute_only: true, app_platform: 'ios', app_version: ENV.fetch('TESTFLIGHT_VERSION', marblezzz_version),
       build_number: ENV.fetch('TESTFLIGHT_BUILD_NUMBER'),
       distribute_external: false, submit_beta_review: false, notify_external_testers: false,
       groups: ['Private Testing'], changelog: ENV.fetch('TESTFLIGHT_CHANGELOG'))
   end
 
-  desc 'Read the latest processed TestFlight build number for version 1.0'
+  desc 'Read the latest processed TestFlight build number for the project version'
   lane :asc_build do
+    version = marblezzz_version
     latest = latest_testflight_build_number(api_key: marblezzz_api_key,
-      app_identifier: 'com.marblezzz.app', version: '1.0')
-    UI.message("Latest TestFlight build for 1.0: #{latest}")
+      app_identifier: 'com.marblezzz.app', version: version)
+    UI.message("Latest TestFlight build for #{version}: #{latest}")
   end
 end

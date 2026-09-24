@@ -63,6 +63,9 @@ struct SettingsView: View {
     @AppStorage("soundEnabled") private var sound = false
     @AppStorage("hapticsEnabled") private var haptics = true
     @AppStorage("botDifficulty") private var difficulty = BotDifficulty.standard.rawValue
+    private var appVersion: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "—"
+    }
     var body: some View {
         NavigationStack {
             Form {
@@ -93,7 +96,12 @@ struct SettingsView: View {
                     Text("Diagnostics contain participant status and timing, never hands or the deck. Include these details when reporting a multiplayer problem.")
                         .font(.caption).foregroundStyle(.secondary)
                 }
-                Section { Text("Marblezzz · 1.0\nMade for a little friendly rivalry.").font(.caption).foregroundStyle(.secondary) }
+                Section {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(verbatim: "Marblezzz · \(appVersion)")
+                        Text("Made for a little friendly rivalry.")
+                    }.font(.caption).foregroundStyle(.secondary)
+                }
             }.navigationTitle("Settings").toolbar { Button("Done") { dismiss() } }
         }
     }

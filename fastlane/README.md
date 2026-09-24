@@ -14,10 +14,11 @@ export QA_DESTINATION='id=your-iOS-27-iPhone-simulator-UDID'
 
 - `tools/qa/pre_asc_qa.sh --require-asc-key --destination "$QA_DESTINATION"`: local strict gate.
 - `tools/qa/pre_asc_qa.sh --allow-dirty --destination "$QA_DESTINATION"`: development checks only.
+- `fastlane ios bump`: set the next `YY.MM.XX` version and increment the build number by one. The first release of a month uses `XX=01`; later releases increment `XX`. Pass `version:26.09.01` to set a specific version. The checked-in Xcode project is the version source of truth, including when regenerating the project.
 - `fastlane listing`: upload English metadata and the reviewed screenshots without submitting to App Review. Read back screenshot counts, order, checksums and COMPLETE state; Fastlane retries can leave duplicates even when the command succeeds.
 - `fastlane archive`: signed archive and IPA, with no upload.
 - `fastlane beta_checked`: strict gate, signed archive, and TestFlight upload. This lane does not submit to App Review or invite external testers.
-- Set `TESTFLIGHT_CHANGELOG` to the build-specific tester notes before running `beta_checked`. The lane verifies that the local build number exceeds the latest TestFlight build for version 1.0.
+- Set `TESTFLIGHT_CHANGELOG` to the build-specific tester notes before running `beta_checked`. The lane verifies that the local build number exceeds the latest TestFlight build for the current project version.
 - `TESTFLIGHT_BUILD_NUMBER=<build> TESTFLIGHT_CHANGELOG='Tester notes' fastlane distribute_internal_build`: attach the processed build to the existing Private Testing group without uploading again. This keeps external beta review disabled.
 
 The gate validates the current screenshot exports against their reviewed hashes. If UI changes affect a captured screen, refresh it using the Simulator and Computer Use, visually review the native and framed images, rerun `marketing/tools/validate_assets.py`, and commit the new assets and validation record before uploading.

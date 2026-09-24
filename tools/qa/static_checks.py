@@ -28,6 +28,14 @@ for name in files:
         hits.append(name)
 check(not hits, 'No secret signatures in tracked files' + (': ' + ', '.join(hits) if hits else ''))
 
+project_text = (ROOT / 'Marblezzz.xcodeproj/project.pbxproj').read_text()
+versions = set(re.findall(r'^\s*MARKETING_VERSION = ([^;]+);', project_text, re.MULTILINE))
+builds = set(re.findall(r'^\s*CURRENT_PROJECT_VERSION = ([^;]+);', project_text, re.MULTILINE))
+check(len(versions) == 1 and re.fullmatch(r'\d{2}\.\d{2}\.\d{2}', next(iter(versions), '')) is not None,
+      'App version uses BillHive-style YY.MM.XX')
+check(len(builds) == 1 and next(iter(builds), '').isdigit() and int(next(iter(builds), '0')) > 0,
+      'App build number is a single positive integer')
+
 for p in sorted((ROOT / 'Marblezzz').rglob('*')):
     if p.suffix in {'.plist', '.xcprivacy', '.entitlements', '.strings', '.stringsdict'}:
         result = subprocess.run(['plutil', '-lint', str(p)], capture_output=True, text=True)
