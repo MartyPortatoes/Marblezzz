@@ -1,6 +1,6 @@
 # App Store Connect publication — September 24, 2026
 
-Marblezzz **1.0 (5)** has been uploaded, processed by Apple, and added to the private internal TestFlight group for the account holder. Builds 1 through 4 remain in that group. The app has not been submitted to App Review or released publicly. This TestFlight update did not select a build for App Store submission.
+Marblezzz **1.0 (6)** has been uploaded, processed by Apple, and added to the private internal TestFlight group for the account holder. Builds 1 through 5 remain in that group. The app has not been submitted to App Review or released publicly. This TestFlight update did not select a build for App Store submission.
 
 ## Published destinations
 
@@ -20,9 +20,9 @@ The website's home, support, privacy, stylesheet, icon, and gameplay image were 
 | Publisher / team | Matthew Robert Portelos / `V25M7FFAP2` |
 | App / bundle / SKU | `6815504897` / `com.marblezzz.app` / `marblezzz-ios` |
 | Version | 1.0, Prepare for Submission; manual release selected |
-| Build | `983039ff-1617-4f53-92f8-4decd3a7fc44`, build 5, `VALID`; builds 1 through 4 remain available |
-| TestFlight | Build 5 is `IN_BETA_TESTING` internally; `READY_FOR_BETA_SUBMISSION` externally |
-| Tester delivery | Private Testing internal group (`fff70a5f-12db-485c-94f2-7431a225e643`) contains builds 1 through 5 and exactly one tester (account holder). Apple reports the tester as `INSTALLED`; this does not identify which build is installed. No external group or public link was created. |
+| Build | `588a6a0f-b8e8-4df9-8e8f-dee7ecbaa3eb`, build 6, `VALID`; builds 1 through 5 remain available |
+| TestFlight | Build 6 is `IN_BETA_TESTING` internally; `READY_FOR_BETA_SUBMISSION` externally |
+| Tester delivery | Private Testing internal group (`fff70a5f-12db-485c-94f2-7431a225e643`) contains builds 1 through 6 and exactly one tester (account holder). Apple reports the tester as `INSTALLED`; this does not identify which build is installed. No external group or public link was created. |
 | Test information | English TestFlight description, feedback contact, website/privacy URLs and What to Test notes saved |
 | Export compliance | Build reports `usesNonExemptEncryption: false` |
 | Game Center | Enabled on bundle identifier and version 1.0; real multiplayer qualification still pending |
@@ -50,19 +50,19 @@ Submit the first purchases with the first App Store version after service qualif
 
 ## Build evidence
 
-Build 1's strict gate ran against clean committed source `cde37d7a83a15fa95818c39f2128ad32c10d2d0a`. Build 2's gate and signed archive ran against `47b734a`. Build 3's gate and signed archive ran against `789c374`. Build 4's gate and signed archive ran against `8cb66cb`. Build 5's gate and signed archive ran against clean committed source **`06af11f`**. The build-5 IPA SHA-256 is `32a363ba4c4ac37b2f3d7b4621271c367c3f88b1633641913f13bbbb0c9dbd12`.
+Build 1's strict gate ran against clean committed source `cde37d7a83a15fa95818c39f2128ad32c10d2d0a`. Build 2's gate and signed archive ran against `47b734a`. Build 3's gate and signed archive ran against `789c374`. Build 4's gate and signed archive ran against `8cb66cb`. Build 5's gate and signed archive ran against `06af11f`. Build 6's gate and signed archive ran against clean committed source **`711302f`**. The build-6 IPA SHA-256 is `9c0cab909368af4522527b14e5625668ddf84669e9adcea9b936635339bcfadd`.
 
 - Static resource, secret-file/signature, localization, listing-length and reviewed-image hash checks passed.
 - Core engine: 35 test functions passed, including 60 seeded complete-game cases.
-- Native unit tests: 21 model and 6 commerce tests passed, including sole-marble selection, Jack targeting, Ace/King exceptions, multiple marbles, and partner control.
+- Native unit tests: 23 model and 6 commerce tests passed, including sole-marble selection, Jack targeting, Ace/King exceptions, multiple marbles, and partner control.
 - iPhone UI: all 12 tests passed in the final full run.
 - Unsigned generic iOS Release build passed.
 - Signed Release archive and IPA export passed using the Marblezzz AppStore profile.
-- Build 5 passed the strict gate, including all native unit and UI tests on the iOS 27 iPhone simulator, and the unsigned Release device build. The new regression test covers a card with one playable marble while other marbles are on the board.
-- The signed build-5 archive and IPA export passed with the Marblezzz AppStore profile. Apple accepted the IPA, processed build 5 as `VALID`, and saved its English What to Test note.
-- The upload processed build 5, then a distribute-only call added it to Private Testing. App Store Connect readback verified build 5, its saved What to Test note, group association, one tester, and `IN_BETA_TESTING` internal state. No external beta review submission was made.
+- Build 6 passed the strict gate, including all native unit and UI tests on the iOS 27 iPhone simulator, and the unsigned Release device build. The new regression tests cover switching to another marble with the same card, switching to a marble that needs a different card, and preserving Jack swap targeting.
+- The signed build-6 archive and IPA export passed with the Marblezzz AppStore profile. Apple accepted the IPA, processed build 6 as `VALID`, and saved its English What to Test note.
+- The upload processed build 6, then a distribute-only call added it to Private Testing. App Store Connect readback verified build 6, its saved What to Test note, group association, one tester, and `IN_BETA_TESTING` internal state. No external beta review submission was made.
 
-Build-5 local evidence: ignored `artifacts/testflight-build-5/`. The IPA and symbols are in ignored `build/`. Credentials, signing material and full logs are not published in the source repository. Earlier iPad and accessibility simulation evidence is recorded in [REVIEW_FIXES.md](https://github.com/MartyPortatoes/Marblezzz/blob/main/docs/REVIEW_FIXES.md).
+Build-6 local evidence: ignored `artifacts/testflight-build-6/`. The IPA and symbols are in ignored `build/`. Credentials, signing material and full logs are not published in the source repository. Earlier iPad and accessibility simulation evidence is recorded in [REVIEW_FIXES.md](https://github.com/MartyPortatoes/Marblezzz/blob/main/docs/REVIEW_FIXES.md).
 
 ## Remaining before App Review
 
