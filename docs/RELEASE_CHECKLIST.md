@@ -5,9 +5,10 @@ Implementation, unsigned builds and simulator tests do not certify a commercial 
 ## Apple configuration
 
 - [x] Publishing team `V25M7FFAP2`; bundle ID `com.marblezzz.app` registered with Game Center; Marblezzz ASC app record `6815504897` created.
-- [ ] Enable Game Center on the identifier and app record; provision device builds.
-- [ ] Create the three non-consumables listed in APPLE_SERVICES.md. Enable Friends Family Sharing in App Store Connect.
-- [ ] Complete commerce agreements, localized metadata, price territories and purchase screenshots.
+- [x] Enable Game Center on the identifier and app record; create the App Store distribution profile and signed build.
+- [x] Create the three non-consumables listed in APPLE_SERVICES.md. Enable Friends Family Sharing in App Store Connect.
+- [x] Complete localized product metadata, price territories and purchase review screenshots; all three products report READY_TO_SUBMIT.
+- [ ] Confirm commerce agreements, tax/banking and regional compliance requirements.
 - [ ] Test actual sandbox products with the local StoreKit configuration disabled.
 
 ## Game Center feasibility harness
@@ -53,10 +54,12 @@ Use the built app with Diagnostics open in Settings and two to four distinct Gam
 - [ ] Friends Family Sharing gain and revocation using Sandbox Test Families.
 - [ ] Cross-device restore; offline pass-and-play with an existing verified entitlement.
 - [ ] Cosmetic purchase never unlocks Friends or changes rules; revoked theme returns to Original.
-- [ ] Add publisher/support contact to the release copy and publish support/privacy URLs.
-- [ ] Complete App Privacy, age rating, content rights and export-compliance forms against the shipping app.
-- [ ] Capture final App Store screenshots for required iPhone/iPad sizes.
-- [ ] Archive signed Release, validate, upload to TestFlight, collect inventor/friend feedback, and resolve findings.
+- [x] Add publisher/support contact to the release copy and publish support/privacy URLs.
+- [x] Complete age rating, content rights and export-compliance declarations against the shipping app.
+- [ ] Publish the saved App Privacy declaration after the final confirmation.
+- [x] Capture and upload six final App Store screenshots for each required iPhone/iPad size.
+- [x] Archive signed Release and upload to TestFlight; Apple processed 1.0 (1) as VALID and ready for internal testing.
+- [ ] Configure chosen testers, collect inventor/friend feedback, and resolve findings.
 - [ ] Submit for App Review only after all release gates pass.
 
-Nothing in this repository asserts that an App Store record, product, signing profile, TestFlight build, or public support website has already been created.
+See [ASC_STATUS.md](ASC_STATUS.md) for the created Apple records, processed build, published website and evidence. Unchecked gates remain unverified.

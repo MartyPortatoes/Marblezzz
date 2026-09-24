@@ -1,5 +1,7 @@
 # Marblezzz
 
+Publication: [App Store Connect and TestFlight status](docs/ASC_STATUS.md).
+
 A native iPhone and iPad partnership marble game. Built with SwiftUI, SpriteKit, Game Center, StoreKit 2, and a standalone Swift rules engine. Minimum iOS/iPadOS 18. The photographed 48-space board and confirmed rules are implemented in one shared package.
 
 ## Run

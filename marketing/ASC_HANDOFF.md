@@ -61,4 +61,4 @@ Complete the existing [release checklist](release-checklist.md), including real 
 - Capturing the large iPad revealed a portrait layout alignment issue. The game stack now fills the available width and centers its content; the final iPad images were recaptured after this fix. A subsequent unsigned generic iOS Release build succeeded.
 - The temporary capture test was removed and the Xcode project regenerated. Reusable capture and rendering tools remain in this package.
 
-These results verify the local asset package and build only. No signed archive, App Store Connect upload, or Apple approval was performed.
+On September 24, 2026, the signed 1.0 (1) build was uploaded and processed by Apple. Both six-image screenshot sets and English listing metadata are saved in App Store Connect. The website, support and privacy pages are live. See [publication status](PUBLICATION_STATUS.md) for verification and remaining device/service gates. Apple review and public App Store release have not occurred.

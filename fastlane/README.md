@@ -14,6 +14,7 @@ export QA_DESTINATION='id=your-iOS-27-iPhone-simulator-UDID'
 
 - `tools/qa/pre_asc_qa.sh --require-asc-key --destination "$QA_DESTINATION"`: local strict gate.
 - `tools/qa/pre_asc_qa.sh --allow-dirty --destination "$QA_DESTINATION"`: development checks only.
+- `fastlane listing`: upload English metadata and the reviewed screenshots without submitting to App Review. Read back screenshot counts, order, checksums and COMPLETE state; Fastlane retries can leave duplicates even when the command succeeds.
 - `fastlane archive`: signed archive and IPA, with no upload.
 - `fastlane beta_checked`: strict gate, signed archive, and TestFlight upload. This lane does not submit to App Review or invite external testers.
 
