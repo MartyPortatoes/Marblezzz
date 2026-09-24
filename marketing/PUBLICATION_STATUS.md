@@ -1,6 +1,6 @@
 # App Store Connect publication — September 24, 2026
 
-Marblezzz **1.0 (2)** has been uploaded, processed by Apple, and added to the private internal TestFlight group for the account holder. The earlier build 1 remains in that group. The app has not been submitted to App Review or released publicly. This TestFlight update did not select a build for App Store submission.
+Marblezzz **1.0 (4)** has been uploaded, processed by Apple, and added to the private internal TestFlight group for the account holder. Builds 1, 2, and 3 remain in that group. The app has not been submitted to App Review or released publicly. This TestFlight update did not select a build for App Store submission.
 
 ## Published destinations
 
@@ -20,14 +20,14 @@ The website's home, support, privacy, stylesheet, icon, and gameplay image were 
 | Publisher / team | Matthew Robert Portelos / `V25M7FFAP2` |
 | App / bundle / SKU | `6815504897` / `com.marblezzz.app` / `marblezzz-ios` |
 | Version | 1.0, Prepare for Submission; manual release selected |
-| Build | `d0e14409-628e-4386-9b74-a86c095a68b6`, build 2, `VALID`; build 1 (`e930da14-2439-4ed0-9695-fef48b10d234`) remains available |
-| TestFlight | Build 2 is `IN_BETA_TESTING` internally; `READY_FOR_BETA_SUBMISSION` externally |
-| Tester delivery | Private Testing internal group (`fff70a5f-12db-485c-94f2-7431a225e643`) contains builds 1 and 2 and exactly one tester (account holder). Apple reports the tester as `INSTALLED`; this does not identify which build is installed. No external group or public link was created. |
+| Build | `ca648572-9d32-4023-8df3-fb8512de4609`, build 4, `VALID`; builds 1, 2, and 3 remain available |
+| TestFlight | Build 4 is `IN_BETA_TESTING` internally; `READY_FOR_BETA_SUBMISSION` externally |
+| Tester delivery | Private Testing internal group (`fff70a5f-12db-485c-94f2-7431a225e643`) contains builds 1, 2, 3, and 4 and exactly one tester (account holder). Apple reports the tester as `INSTALLED`; this does not identify which build is installed. No external group or public link was created. |
 | Test information | English TestFlight description, feedback contact, website/privacy URLs and What to Test notes saved |
 | Export compliance | Build reports `usesNonExemptEncryption: false` |
 | Game Center | Enabled on bundle identifier and version 1.0; real multiplayer qualification still pending |
 | English listing | Name, subtitle, description, promotional text, keywords, copyright, support, marketing and privacy URLs saved |
-| Screenshots | The existing App Store listing has six iPhone and six iPad images previously verified `COMPLETE`. Fresh build-2 captures and twelve campaign exports passed local validation and visual review; the App Store listing images were not replaced in this TestFlight-only update. |
+| Screenshots | The existing App Store listing has six iPhone and six iPad images previously verified `COMPLETE`. Build-4 captures and twelve campaign exports passed local validation and visual review; the App Store listing images were not replaced in this TestFlight-only update. |
 | App icon | New opaque 1024-pixel artwork installed in the app and delivered with build 1 |
 | Base price | Free, USA base price verified at 0.0 |
 | Availability | 175 territories configured, including future territories; this is configuration, not public release |
@@ -50,19 +50,19 @@ Submit the first purchases with the first App Store version after service qualif
 
 ## Build evidence
 
-Build 1's strict gate ran against clean committed source `cde37d7a83a15fa95818c39f2128ad32c10d2d0a`. Build 2's gate and signed archive ran against clean committed source **`47b734a`**. The build-2 IPA SHA-256 is `3909a084ba0bddaf7a79275e3874d008f75d32d193487280d9b9b00c28bae42e`.
+Build 1's strict gate ran against clean committed source `cde37d7a83a15fa95818c39f2128ad32c10d2d0a`. Build 2's gate and signed archive ran against `47b734a`. Build 3's gate and signed archive ran against `789c374`. Build 4's gate and signed archive ran against clean committed source **`8cb66cb`**. The build-4 IPA SHA-256 is `372485b6df8c4f1662db2a139e02bb636c0feecad150ccc5aee503f18c888ae6`.
 
 - Static resource, secret-file/signature, localization, listing-length and reviewed-image hash checks passed.
 - Core engine: 35 test functions passed, including 60 seeded complete-game cases.
-- Native unit tests: 13 model and 6 commerce tests passed.
-- iPhone UI: all 9 tests passed in the final full run.
+- Native unit tests: 20 model and 6 commerce tests passed, including sole-marble selection, Jack targeting, Ace/King exceptions, multiple marbles, and partner control.
+- iPhone UI: all 12 tests passed in the final full run.
 - Unsigned generic iOS Release build passed.
 - Signed Release archive and IPA export passed using the Marblezzz AppStore profile.
-- Build 2 passed the strict gate, including all native unit and UI tests on the iOS 27 iPhone simulator, and the unsigned Release device build.
-- The signed build-2 archive and IPA export passed with the Marblezzz AppStore profile. Apple accepted the IPA, processed build 2 as `VALID`, and saved its What to Test notes.
-- The initial build-2 `beta_checked` run returned an error after processing because Fastlane tried to submit for external beta review when a group was specified. No external review submission was completed. The corrected distribute-only lane then added the already processed build to Private Testing; App Store Connect readback verified the build, group association, one tester, and `IN_BETA_TESTING` internal state.
+- Build 4 passed the strict gate, including all native unit and UI tests on the iOS 27 iPhone simulator, and the unsigned Release device build.
+- The signed build-4 archive and IPA export passed with the Marblezzz AppStore profile. Apple accepted the IPA, processed build 4 as `VALID`, and saved its English What to Test notes.
+- The upload processed build 4, then a distribute-only call added it to Private Testing. App Store Connect readback verified build 4, its saved What to Test notes, group association, one tester, and `IN_BETA_TESTING` internal state. No external beta review submission was made.
 
-Build-2 local evidence: ignored `artifacts/pre-asc/` and `artifacts/testflight-build-2/`. The IPA and symbols are in ignored `build/`. Credentials, signing material and full logs are not published in the source repository. Earlier iPad and accessibility simulation evidence is recorded in [REVIEW_FIXES.md](https://github.com/MartyPortatoes/Marblezzz/blob/main/docs/REVIEW_FIXES.md).
+Build-4 local evidence: ignored `artifacts/testflight-build-4/`. The IPA and symbols are in ignored `build/`. Credentials, signing material and full logs are not published in the source repository. Earlier iPad and accessibility simulation evidence is recorded in [REVIEW_FIXES.md](https://github.com/MartyPortatoes/Marblezzz/blob/main/docs/REVIEW_FIXES.md).
 
 ## Remaining before App Review
 
