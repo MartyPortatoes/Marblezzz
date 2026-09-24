@@ -251,7 +251,7 @@ struct GameTableView: View {
                             $0.card == card && (selectedSource == nil || $0.sourceID == selectedSource)
                         }
                         Button {
-                            selectCard(card, in: game)
+                            selectCard(card)
                         } label: { CardFace(card: card, selected: selectedCard == card, playable: playable) }
                         .buttonStyle(.plain).disabled(!model.canPlay)
                         .accessibilityIdentifier("card-\(card.id)")
@@ -340,7 +340,7 @@ struct GameTableView: View {
     private func actionDescription(_ action: GameAction, _ game: GameState) -> String {
         (try? GameRules.preview(action, for: PlayerObservation(state: game, seat: game.activeSeat)).description) ?? "Move"
     }
-    private func selectCard(_ card: Card, in game: GameState) {
+    private func selectCard(_ card: Card) {
         let source = selectedSource
         selectedCard = card
         selectedAction = nil
@@ -349,7 +349,7 @@ struct GameTableView: View {
             selectedAction = Self.action(for: card, sourceID: source, legalActions: model.legalActions)
             return
         }
-        if let selection = Self.impliedSelection(for: card, in: game, legalActions: model.legalActions) {
+        if let selection = Self.impliedSelection(for: card, legalActions: model.legalActions) {
             selectedSource = selection.sourceID
             selectedAction = selection.action
         }
@@ -358,15 +358,13 @@ struct GameTableView: View {
         guard card.rank != 11 else { return nil }
         return legalActions.first { $0.card == card && $0.sourceID == sourceID }
     }
-    static func impliedSelection(for card: Card, in game: GameState, legalActions: [GameAction]) -> (sourceID: Int, action: GameAction?)? {
+    static func impliedSelection(for card: Card, legalActions: [GameAction]) -> (sourceID: Int, action: GameAction?)? {
         guard card.rank != 1, card.rank != 13 else { return nil }
-        let controlledSeat = game.controlledSeat(for: game.activeSeat)
-        let onBoard = game.marbles.filter { $0.owner == controlledSeat && $0.position != .reserve }
-        guard onBoard.count == 1, let marble = onBoard.first else { return nil }
-        let choices = legalActions.filter { $0.card == card && $0.sourceID == marble.id }
-        guard !choices.isEmpty else { return nil }
+        let choices = legalActions.filter { $0.card == card && $0.sourceID != nil }
+        guard let sourceID = choices.first?.sourceID,
+              choices.allSatisfy({ $0.sourceID == sourceID }) else { return nil }
         let action = card.rank == 11 || choices.count != 1 ? nil : choices[0]
-        return (marble.id, action)
+        return (sourceID, action)
     }
     private func selectMarble(_ id: Int) {
         guard model.canPlay else { return }

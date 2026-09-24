@@ -245,7 +245,23 @@ import MarblezzzCore
         game.hands[Seat.red.rawValue] = [card]
         let action = try XCTUnwrap(GameRules.legalActions(in: game).first { $0.card == card })
 
-        let selection = try XCTUnwrap(GameTableView.impliedSelection(for: card, in: game, legalActions: GameRules.legalActions(in: game)))
+        let selection = try XCTUnwrap(GameTableView.impliedSelection(for: card, legalActions: GameRules.legalActions(in: game)))
+        XCTAssertEqual(selection.sourceID, 0)
+        XCTAssertEqual(selection.action, action)
+    }
+
+    func testSolePlayableMarbleIsSelectedWhenOthersAreOnBoard() throws {
+        let card = Card(8)
+        var game = GameState(seed: 42, dealer: .blue)
+        game.marbles[0].position = .track(3)
+        game.marbles[1].position = .home(4)
+        game.hands[Seat.red.rawValue] = [card]
+        let actions = GameRules.legalActions(in: game).filter { $0.card == card }
+        let action = try XCTUnwrap(actions.first)
+        XCTAssertEqual(actions.count, 1)
+        XCTAssertEqual(action.sourceID, 0)
+
+        let selection = try XCTUnwrap(GameTableView.impliedSelection(for: card, legalActions: actions))
         XCTAssertEqual(selection.sourceID, 0)
         XCTAssertEqual(selection.action, action)
     }
@@ -257,7 +273,7 @@ import MarblezzzCore
         game.marbles[5].position = .track(15)
         game.hands[Seat.red.rawValue] = [card]
 
-        let selection = try XCTUnwrap(GameTableView.impliedSelection(for: card, in: game, legalActions: GameRules.legalActions(in: game)))
+        let selection = try XCTUnwrap(GameTableView.impliedSelection(for: card, legalActions: GameRules.legalActions(in: game)))
         XCTAssertEqual(selection.sourceID, 0)
         XCTAssertNil(selection.action)
     }
@@ -268,8 +284,8 @@ import MarblezzzCore
         game.hands[Seat.red.rawValue] = [Card(1), Card(13)]
         let actions = GameRules.legalActions(in: game)
 
-        XCTAssertNil(GameTableView.impliedSelection(for: Card(1), in: game, legalActions: actions))
-        XCTAssertNil(GameTableView.impliedSelection(for: Card(13), in: game, legalActions: actions))
+        XCTAssertNil(GameTableView.impliedSelection(for: Card(1), legalActions: actions))
+        XCTAssertNil(GameTableView.impliedSelection(for: Card(13), legalActions: actions))
     }
 
     func testMultipleOnBoardMarblesRequireManualSelection() {
@@ -279,7 +295,7 @@ import MarblezzzCore
         game.marbles[1].position = .home(0)
         game.hands[Seat.red.rawValue] = [card]
 
-        XCTAssertNil(GameTableView.impliedSelection(for: card, in: game, legalActions: GameRules.legalActions(in: game)))
+        XCTAssertNil(GameTableView.impliedSelection(for: card, legalActions: GameRules.legalActions(in: game)))
     }
 
     func testImpliedSelectionUsesPartnerWhenControllingTheirMarbles() throws {
@@ -289,7 +305,7 @@ import MarblezzzCore
         game.marbles[10].position = .track(24)
         game.hands[Seat.red.rawValue] = [card]
 
-        let selection = try XCTUnwrap(GameTableView.impliedSelection(for: card, in: game, legalActions: GameRules.legalActions(in: game)))
+        let selection = try XCTUnwrap(GameTableView.impliedSelection(for: card, legalActions: GameRules.legalActions(in: game)))
         XCTAssertEqual(selection.sourceID, 10)
         XCTAssertEqual(selection.action, GameAction(card: card, kind: .move(10, 4)))
     }
