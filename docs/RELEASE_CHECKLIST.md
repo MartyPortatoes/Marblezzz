@@ -8,7 +8,7 @@ Implementation, unsigned builds and simulator tests do not certify a commercial 
 - [x] Enable Game Center on the identifier and app record; create the App Store distribution profile and signed build.
 - [x] Create the three non-consumables listed in APPLE_SERVICES.md. Enable Friends Family Sharing in App Store Connect.
 - [x] Complete localized product metadata, price territories and purchase review screenshots; all three products report READY_TO_SUBMIT.
-- [ ] Confirm commerce agreements, tax/banking and regional compliance requirements.
+- [x] Confirm active free/paid agreements, banking, US tax and Digital Services Act status in the publisher account.
 - [ ] Test actual sandbox products with the local StoreKit configuration disabled.
 
 ## Game Center feasibility harness

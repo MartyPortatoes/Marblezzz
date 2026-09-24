@@ -32,6 +32,7 @@ The website's home, support, privacy, stylesheet, icon, and gameplay image were 
 | Availability | 175 territories configured, including future territories; this is configuration, not public release |
 | Age rating | Apple's calculated rating is 4+, Brazil L, Korea All; no contest-event, wagering, chat, broad UGC or objectionable-content features declared |
 | Content rights | No third-party content declared; app artwork and native game presentation are original |
+| Publisher business readiness | Free and paid agreements, bank account, US tax form and Digital Services Act status all Active; verified in ASC without accepting new terms |
 | App Privacy | “Data Not Collected” saved; final Publish confirmation pending |
 
 ## In-app purchases
@@ -67,7 +68,7 @@ Use [RELEASE_CHECKLIST.md](release-checklist.md), especially:
 1. Real iPhone/iPad play, oldest supported iOS 18, VoiceOver, Dynamic Type, app-switcher hand privacy and Instruments.
 2. Two to four distinct Game Center accounts: invitations, readiness, full games, timeouts, return after timeout, resignations, cancellation, account/device switching and interrupted commits.
 3. TestFlight/Apple sandbox purchases with the local StoreKit configuration disabled: purchase, cancel, pending approval, restore, refunds/revocation, cross-device access and Friends Family Sharing.
-4. Confirm paid-app agreements, tax/banking and any regional compliance requirements in the publisher account; no new agreements were accepted in this run.
+4. Keep publisher business requirements current; existing free/paid agreements, banking, US tax and Digital Services Act statuses were verified Active. No new agreements were accepted in this run.
 5. Inventor playtest and rules sign-off, resolve findings, select the first purchases for submission, then submit for App Review.
 
 Do not infer those real-device or real-service results from simulator tests, metadata completeness, Apple build processing or the website deployment.
