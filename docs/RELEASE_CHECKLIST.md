@@ -61,6 +61,6 @@ Use the built app with Diagnostics open in Settings and two to four distinct Gam
 - [x] Archive signed Release and upload to TestFlight; Apple processed 1.0 builds 1 through 6 and 26.09.01 build 7 as VALID. Build 7 is in internal beta testing.
 - [x] Keep private internal TestFlight access for the account holder only; the one-tester Private Testing group contains builds 1 through 7.
 - [ ] Collect inventor/friend feedback and resolve findings.
-- [ ] Submit for App Review only after all release gates pass.
+- [x] Submit 26.09.01 build 7 and all three first purchases together for App Review after the user's test sign-off; submission `81609297-b53e-4a74-b9d6-62b216c2aac0` is Waiting for Review. Detailed results for unchecked gates have not been recorded here.
 
 See [ASC_STATUS.md](ASC_STATUS.md) for the created Apple records, processed build, published website and evidence. Unchecked gates remain unverified.

@@ -1,6 +1,6 @@
-# App Store Connect publication — September 24, 2026
+# App Store Connect publication — September 25, 2026
 
-Marblezzz **26.09.01 (7)** has been uploaded, processed by Apple, and added to the private internal TestFlight group for the account holder. Builds 1 through 6 remain in that group. The existing App Store draft was changed to 26.09.01 and now selects build 7. The app has not been submitted to App Review or released publicly.
+Marblezzz **26.09.01 (7)** and its three non-consumable purchases were submitted together to Apple App Review on September 25, 2026. App Store Connect reports all four items **Waiting for Review** in submission `81609297-b53e-4a74-b9d6-62b216c2aac0`. Release is set to manual; the app is not public. Build 7 remains in the private internal TestFlight group for the account holder.
 
 ## Published destinations
 
@@ -19,13 +19,14 @@ The website's home, support, privacy, stylesheet, icon, and gameplay image were 
 | --- | --- |
 | Publisher / team | Matthew Robert Portelos / `V25M7FFAP2` |
 | App / bundle / SKU | `6815504897` / `com.marblezzz.app` / `marblezzz-ios` |
-| Version | 26.09.01, Prepare for Submission; manual release selected; build 7 attached |
+| Version | 26.09.01, Waiting for Review; manual release selected; build 7 attached |
+| App Review | [Submission `81609297-b53e-4a74-b9d6-62b216c2aac0`](https://appstoreconnect.apple.com/apps/6815504897/distribution/reviewsubmissions/details/81609297-b53e-4a74-b9d6-62b216c2aac0), submitted September 25, 2026 at 11:49 AM Eastern; app and three purchases Waiting for Review |
 | Build | `e36b88f0-dc22-49e8-83d2-bd61cc87e79b`, build 7, `VALID`; builds 1 through 6 remain available |
 | TestFlight | Build 7 is `IN_BETA_TESTING` internally; `READY_FOR_BETA_SUBMISSION` externally |
 | Tester delivery | Private Testing internal group (`fff70a5f-12db-485c-94f2-7431a225e643`) contains builds 1 through 7 and exactly one tester (account holder). Apple reports the tester as `INSTALLED`; this does not identify which build is installed. No external group or public link was created. |
 | Test information | English TestFlight description, feedback contact, website/privacy URLs and What to Test notes saved |
 | Export compliance | Build reports `usesNonExemptEncryption: false` |
-| Game Center | Enabled on bundle identifier and the 26.09.01 App Store draft; real multiplayer qualification still pending |
+| Game Center | Enabled on bundle identifier and submitted 26.09.01 version; user reports tests passed, with detailed multiplayer results not recorded here |
 | English listing | Name, subtitle, description, promotional text, keywords, copyright, support, marketing and privacy URLs saved |
 | Screenshots | The existing App Store listing has six iPhone and six iPad images verified `COMPLETE` after the draft version change. Build-4 captures and twelve campaign exports passed local validation and visual review; the App Store listing images were not replaced in this update. |
 | App icon | New opaque 1024-pixel artwork installed in the app and delivered with build 1 |
@@ -38,7 +39,7 @@ The website's home, support, privacy, stylesheet, icon, and gameplay image were 
 
 ## In-app purchases
 
-All three non-consumables have English names/descriptions, prices, territory availability, review notes, and complete review screenshots. Apple reports `READY_TO_SUBMIT`, which is not approval or a successful sandbox transaction.
+All three non-consumables have English names/descriptions, prices, territory availability, review notes, and complete review screenshots. They were included in the same App Review submission as the app; Apple reports each **Waiting for Review**. This is not purchase approval or evidence of a sandbox transaction.
 
 | Product | Product ID | ASC ID | USA price | Family Sharing |
 | --- | --- | --- | --- | --- |
@@ -46,7 +47,7 @@ All three non-consumables have English names/descriptions, prices, territory ava
 | Midnight walnut | `com.marblezzz.walnut` | `6815509582` | $1.99 | Disabled |
 | Coastal oak | `com.marblezzz.coastal` | `6815509411` | $1.99 | Disabled |
 
-Submit the first purchases with the first App Store version after service qualification. Actual sandbox purchase/restore, revocation and Family Sharing behavior remain unverified.
+The user reported all tests passed before authorizing App Review submission. Per-case sandbox purchase/restore, revocation and Family Sharing results were not recorded in this repository.
 
 ## Build evidence
 
@@ -68,14 +69,14 @@ Build 7's strict gate and signed archive ran against clean committed source **`f
 
 Build-6 local evidence: ignored `artifacts/testflight-build-6/`. Build-7 local evidence: ignored `artifacts/release-26.09.01/`. The IPA and symbols are in ignored `build/`. Credentials, signing material and full logs are not published in the source repository. Earlier iPad and accessibility simulation evidence is recorded in [REVIEW_FIXES.md](https://github.com/MartyPortatoes/Marblezzz/blob/main/docs/REVIEW_FIXES.md).
 
-## Remaining before App Review
+## Post-submission evidence
 
-Use [RELEASE_CHECKLIST.md](release-checklist.md), especially:
+The user reported all tests passed before submission. [RELEASE_CHECKLIST.md](release-checklist.md) still lacks per-case evidence for these release checks:
 
 1. Real iPhone/iPad play, oldest supported iOS 18, VoiceOver, Dynamic Type, app-switcher hand privacy and Instruments.
 2. Two to four distinct Game Center accounts: invitations, readiness, full games, timeouts, return after timeout, resignations, cancellation, account/device switching and interrupted commits.
 3. TestFlight/Apple sandbox purchases with the local StoreKit configuration disabled: purchase, cancel, pending approval, restore, refunds/revocation, cross-device access and Friends Family Sharing.
 4. Keep publisher business requirements current; existing free/paid agreements, banking, US tax and Digital Services Act statuses were verified Active. No new agreements were accepted in this run.
-5. Inventor playtest and rules sign-off, resolve findings, select the first purchases for submission, then submit for App Review.
+5. Inventor playtest and rules sign-off.
 
-Do not infer those real-device or real-service results from simulator tests, metadata completeness, Apple build processing or the website deployment.
+Do not infer detailed real-device or real-service results from simulator tests, metadata completeness, Apple build processing, the website deployment, or App Review submission.
