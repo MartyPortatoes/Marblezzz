@@ -56,3 +56,17 @@ Copies of logs and machine-readable summaries are in the ignored local `artifact
 Game Center integration is implemented and compiles, but no multi-account physical-device match was run. Invitations/readiness, mixed seats, live/asynchronous completion, notification delivery, deadline forwarding with human return, self-forwarding consecutive turns, uncertain network submissions, out-of-turn resignation/cancellation, and account changes require the explicit [feasibility checklist](RELEASE_CHECKLIST.md). The app reports a concrete integration error if Game Center makes a timed-out participant terminal; it does not silently change the agreed one-turn substitution rule.
 
 The publishing team, App Store Connect app and products, provisioning, real sandbox restores and Family Sharing/revocation, oldest supported devices, complete VoiceOver/Reduce Motion sessions, performance profiling, support/privacy URLs, inventor rule sign-off, and TestFlight playtests remain unverified or unconfigured. This is an implemented development build with documented evidence, not a certified App Store release.
+
+## Physical smoke-test attempt — October 1, 2026
+
+The paired iPhone 15 Pro became reachable on iOS 27, with production 26.09.01 (7)
+still installed. To preserve its app and saves, an isolated `com.marblezzz.app.qa`
+development build was created from tested source `ef769a3`, with only bundle IDs,
+signing team and display name changed. App version/build remain 26.10.01 (8).
+
+The device build and provisioning completed. Xcode is waiting for the locked
+phone to be unlocked before launching two free-access model tests and three UI
+checks (all finishes/persistence, online entry, and pass-and-play hand privacy).
+This is a pending run, not a passed device test. Its live xcodebuild process was
+verified running; log: ignored `artifacts/release-26.10.01/physical-qa.log`. The
+result bundle will be `/tmp/marblezzz-physical-free-tests.xcresult`.

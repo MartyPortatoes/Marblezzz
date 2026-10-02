@@ -25,9 +25,9 @@ Automated verification: 35 core test functions (including 60 seeded full-game ca
 
 ## Remaining public-release steps
 
-1. Physical-device smoke check for build 8: pass-and-play start/resume, online entry, and all three finishes without purchase prompts. The paired iPhone was disconnected; the user was asked to test the private TestFlight build. No new physical-device result is claimed.
+1. Physical-device smoke check for build 8: pass-and-play start/resume, online entry, and all three finishes without purchase prompts. The iPhone 15 Pro is now connected on iOS 27. It still has production build 7 installed. An isolated development app, `com.marblezzz.app.qa` (Marblezzz QA), was built from `ef769a3` with version 26.10.01 (8), changing only its bundle identifiers, signing team and display name. The five focused device tests are waiting for the phone to be unlocked; no passing device result is claimed. Production app data is not used by these tests. The user can alternatively report the private TestFlight build-8 smoke result.
 2. Apple App Review approval.
-3. Remove availability of Friends (`6815509523`), Midnight walnut (`6815509582`), and Coastal oak (`6815509411`) before releasing the free update. These historical non-consumables currently remain approved/available; their records must be preserved, with sale availability retired rather than deleting purchase history.
+3. Remove availability of Friends (`6815509523`), Midnight walnut (`6815509582`), and Coastal oak (`6815509411`) before releasing the free update. These historical non-consumables currently remain approved/available; their records must be preserved, with sale availability retired rather than deleting purchase history. Current availability for all 175 territories per product has been backed up, and retirement/restore request bodies are prepared in ignored `artifacts/release-26.10.01/purchase-retirement/`.
 4. Release the approved version, read back public availability, remove the website's pending-update notice and update these records.
 
 The September submission is now COMPLETE and all its four items APPROVED. This supersedes the historical Waiting for Review snapshot below. Prior multi-account Game Center and physical-device sign-off does not substitute for this update's pending smoke check.
