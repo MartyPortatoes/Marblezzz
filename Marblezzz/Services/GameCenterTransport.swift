@@ -10,7 +10,6 @@ import MarblezzzCore
     var identityChanges: AnyPublisher<String?, Never> { get }
     var matchEvents: PassthroughSubject<String, Never> { get }
     var matchActivations: PassthroughSubject<String, Never> { get }
-    var hasFriendsAccess: () -> Bool { get set }
     var pendingSettings: MatchSettings? { get set }
     var pendingHostSeat: Seat { get set }
     func authenticate()
@@ -50,7 +49,6 @@ private struct ControlMessage: Codable {
     @Published private(set) var diagnostic = "No Game Center session yet."
     let matchEvents = PassthroughSubject<String, Never>()
     let matchActivations = PassthroughSubject<String, Never>()
-    var hasFriendsAccess: () -> Bool = { false }
     var pendingSettings: MatchSettings?
     var pendingHostSeat: Seat = .red
     private var busyIDs = Set<String>()
@@ -92,22 +90,21 @@ private struct ControlMessage: Codable {
         } catch { errorMessage = error.localizedDescription }
     }
     func accept(id: String) async throws {
-        guard hasFriendsAccess() else { throw CommerceError.friendsRequired }
         let match = try await GKTurnBasedMatch.load(withID: id)
         if match.participants.first(where: { $0.player?.gamePlayerID == playerID })?.status == .invited {
             try await match.acceptInvite()
         }
     }
     private func read(_ id: String) async throws -> (GKTurnBasedMatch, MatchEnvelope) {
-        guard let playerID else { throw CommerceError.signInRequired }
+        guard let playerID else { throw GameCenterAccessError.signInRequired }
         let match = try await GKTurnBasedMatch.load(withID: id)
         let data = try await match.loadMatchData()
-        guard self.playerID == playerID else { throw CommerceError.signInRequired }
+        guard self.playerID == playerID else { throw GameCenterAccessError.signInRequired }
         diagnostic = "\(match.matchID)\nStatus: \(match.status.rawValue) · participants: \(match.participants.count)\nCurrent participant: \(match.participants.firstIndex { $0 === match.currentParticipant } ?? -1)\n" +
             match.participants.enumerated().map { "Seat \($0.offset): status \($0.element.status.rawValue), outcome \($0.element.matchOutcome.rawValue), deadline \($0.element.timeoutDate?.description ?? "none")" }.joined(separator: "\n")
         if let data, !data.isEmpty { return (match, try SnapshotCodec.decode(data)) }
         guard match.currentParticipant?.player?.gamePlayerID == playerID,
-              var settings = pendingSettings, hasFriendsAccess() else { throw SessionError.notReady }
+              var settings = pendingSettings else { throw SessionError.notReady }
         let humanSeats = settings.seats.filter { $0.kind == .human }.map(\.seat)
         guard humanSeats.count == match.participants.count, humanSeats.contains(pendingHostSeat) else { throw SessionError.invalidSettings }
         let hostIndex = match.participants.firstIndex { $0.player?.gamePlayerID == playerID }!
@@ -244,7 +241,6 @@ private struct ControlMessage: Codable {
         pendingSettings = nil
     }
     func submit(_ action: GameAction, matchID: String, revision: Int, operationID: UUID) async throws -> MatchEnvelope {
-        guard hasFriendsAccess() else { throw CommerceError.friendsRequired }
         guard !busyIDs.contains(matchID) else { throw SessionError.staleRevision }
         busyIDs.insert(matchID); defer { busyIDs.remove(matchID) }
         let (match, decoded) = try await read(matchID)
@@ -269,7 +265,7 @@ private struct ControlMessage: Codable {
         }
     }
     func ready(id: String, acceptingSettingsRevision: Int) async throws -> MatchEnvelope {
-        guard hasFriendsAccess(), let playerID else { throw CommerceError.friendsRequired }
+        guard let playerID else { throw GameCenterAccessError.signInRequired }
         guard !busyIDs.contains(id) else { throw SessionError.staleRevision }
         busyIDs.insert(id); defer { busyIDs.remove(id) }
         let (match, decoded) = try await read(id)
@@ -328,7 +324,7 @@ private struct ControlMessage: Codable {
         busyIDs.insert(id); defer { busyIDs.remove(id) }
         let (match, decoded) = try await read(id)
         var envelope = decoded
-        guard let playerID else { throw CommerceError.signInRequired }
+        guard let playerID else { throw GameCenterAccessError.signInRequired }
         if isAuthority(match) {
             try await reconcile(match, envelope: &envelope)
             try envelope.resign(playerID: playerID)
@@ -370,8 +366,7 @@ private struct ControlMessage: Codable {
     }
 }
 
-enum CommerceError: String, LocalizedError {
-    case friendsRequired = "The Friends unlock is required to play with friends."
+enum GameCenterAccessError: String, LocalizedError {
     case signInRequired = "Sign in to Game Center to play online."
     var errorDescription: String? { rawValue }
 }

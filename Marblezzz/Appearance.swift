@@ -5,7 +5,6 @@ enum BoardTheme: String, CaseIterable, Identifiable {
     case original, walnut, coastal
     var id: String { rawValue }
     var name: String { switch self { case .original: "Original maple"; case .walnut: "Midnight walnut"; case .coastal: "Coastal oak" } }
-    var productID: String? { switch self { case .original: nil; case .walnut: ProductID.walnut; case .coastal: ProductID.coastal } }
     var wood: UIColor {
         switch self { case .original: UIColor(hex: 0xCFA66D); case .walnut: UIColor(hex: 0x705442); case .coastal: UIColor(hex: 0xD9CEC0) }
     }

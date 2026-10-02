@@ -47,6 +47,13 @@ for p in sorted((ROOT / 'Marblezzz').rglob('*')):
         except (ValueError, OSError):
             check(False, 'Valid JSON: ' + str(p.relative_to(ROOT)))
 
+# The free release must not accidentally reintroduce a purchase service or test catalog.
+app_swift = '\n'.join(p.read_text() for p in (ROOT / 'Marblezzz').rglob('*.swift'))
+check(not re.search(r'import StoreKit|PurchaseStore|ProductID|hasFriendsAccess|showStore', app_swift),
+      'Free app contains no StoreKit service or purchase gates')
+check('.storekit' not in project_text and not list((ROOT / 'Marblezzz').rglob('*.storekit')),
+      'No StoreKit catalog bundled in shipping project')
+
 catalog = json.loads((ROOT / 'Marblezzz/Resources/Localizable.xcstrings').read_text())
 languages = {lang for entry in catalog['strings'].values() for lang in entry.get('localizations', {})}
 check(catalog['sourceLanguage'] == 'en' and languages <= {'en'}, 'English source catalog; no partial additional locales declared')

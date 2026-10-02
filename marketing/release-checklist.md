@@ -6,10 +6,8 @@ Implementation, unsigned builds and simulator tests do not certify a commercial 
 
 - [x] Publishing team `V25M7FFAP2`; bundle ID `com.marblezzz.app` registered with Game Center; Marblezzz ASC app record `6815504897` created.
 - [x] Enable Game Center on the identifier and app record; create the App Store distribution profile and signed build.
-- [x] Create the three non-consumables listed in APPLE_SERVICES.md. Enable Friends Family Sharing in App Store Connect.
-- [x] Complete localized product metadata, price territories and purchase review screenshots; all three products report READY_TO_SUBMIT.
-- [x] Confirm active free/paid agreements, banking, US tax and Digital Services Act status in the publisher account.
-- [ ] Test actual sandbox products with the local StoreKit configuration disabled.
+- [x] 26.10.01 removes all purchases and makes every mode and board finish available without entitlements.
+- [ ] Retire availability of the three historical non-consumables after the free update is ready for distribution.
 
 ## Game Center feasibility harness
 
@@ -48,12 +46,13 @@ Use the built app with Diagnostics open in Settings and two to four distinct Gam
 - [ ] Recovery after termination, interrupted saves, corrupt primary snapshot and newer-version snapshot.
 - [ ] Instruments: idle rendering, animation responsiveness, memory across repeated games and background transitions.
 
-## Purchases and distribution
+## Free release and distribution
 
-- [ ] Purchase/cancel/pending approval/refund/restore using sandbox on real devices.
-- [ ] Friends Family Sharing gain and revocation using Sandbox Test Families.
-- [ ] Cross-device restore; offline pass-and-play with an existing verified entitlement.
-- [ ] Cosmetic purchase never unlocks Friends or changes rules; revoked theme returns to Original.
+Purchase, restore, refund, revocation and Family Sharing tests are no longer applicable to build 8: it has no purchase system. Existing saves and selected finishes keep their storage keys and formats.
+
+- [ ] Validate free pass-and-play start/resume, online entry and all finishes on the updated physical-device build.
+- [ ] Submit 26.10.01 build 8 with the free-access listing and screenshots after validation.
+
 - [x] Add publisher/support contact to the release copy and publish support/privacy URLs.
 - [x] Complete age rating, content rights and export-compliance declarations against the shipping app.
 - [x] Publish the App Privacy declaration: Data Not Collected; verified in ASC after publisher approval.

@@ -32,7 +32,6 @@
       "eyebrow": "Friends around one screen",
       "headline": "Pass. Reveal.\nPlay.",
       "subcopy": "Keep your cards private.\nShare one device with friends.",
-      "disclosure": "Pass-and-play requires the Friends purchase.",
       "appearance": "light"
     },
     {
@@ -46,8 +45,7 @@
       "id": "06-finish",
       "eyebrow": "A table that feels like you",
       "headline": "Make it\nyours.",
-      "subcopy": "Find your favorite look.\nExplore optional board finishes.",
-      "disclosure": "Optional finishes sold separately.",
+      "subcopy": "Find your favorite look.\nAll three finishes are included.",
       "appearance": "dark"
     }
   ]

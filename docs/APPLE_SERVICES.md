@@ -2,11 +2,11 @@
 
 ## Boundaries
 
-`MarblezzzCore` is independent of GameKit, StoreKit and rendering. Its `PlayerObservation` contains one private hand, board state, card counts, public discards and turn number. It has no opponent hands, stock or random generator. Computer decisions are pure and repeatable.
+`MarblezzzCore` is independent of GameKit and rendering. Its `PlayerObservation` contains one private hand, board state, card counts, public discards and turn number. It has no opponent hands, stock or random generator. Computer decisions are pure and repeatable.
 
 Game Center transports a full versioned `MatchEnvelope`. This deliberately accepts client trust: a modified participant's app could inspect other hands or the stock. Normal UI and diagnostics do not expose those fields. There is no claim of server-enforced anti-cheat or protected competitive rankings.
 
-Only `GKTurnBasedMatch.currentParticipant` may submit game state. Application seats are mapped to immutable Game Center participant indexes, so bots do not require Game Center identities. Invitees accept a purchase-gated lobby before cards are dealt. All participants receive stable seat mapping and room settings.
+Only `GKTurnBasedMatch.currentParticipant` may submit game state. Application seats are mapped to immutable Game Center participant indexes, so bots do not require Game Center identities. Invitees accept a shared lobby before cards are dealt. All participants receive stable seat mapping and room settings.
 
 ## Commit and recovery
 
@@ -26,19 +26,11 @@ The integration records Game Center participant status/outcome/deadline metadata
 
 A new application turn calls `endTurn` even if the next eligible human is the same participant, so the service deadline can restart without inventing a marble move. Ordinary refreshes use `saveCurrentTurn` and do not extend the deadline. Include same-participant consecutive turns and the final remaining human in the device feasibility gate.
 
-## StoreKit
+## Free access
 
-Products are non-consumables:
+As of 26.10.01 (8), solo, pass-and-play, private online play, and all three board finishes are included for everyone. The app has no StoreKit service, transaction listener, product identifiers, purchase/restore flow, or bundled StoreKit configuration. Online play still requires an authenticated Game Center identity and internet access. Existing saved games and the `boardTheme` preference retain their format and keys.
 
-| ID | US launch price | Family Sharing |
-| --- | --- | --- |
-| `com.marblezzz.friends` | $4.99 | Enabled |
-| `com.marblezzz.walnut` | $1.99 | Disabled |
-| `com.marblezzz.coastal` | $1.99 | Disabled |
-
-All access comes from verified `Transaction.currentEntitlements` and `Transaction.updates`. Apple's local verified transaction cache supports offline access; no unsigned UserDefaults purchase flag is used. Purchase cancellation grants nothing; pending transactions wait for approval; revocation removes access. Original appearance remains free. Cosmetic ownership never grants Friends access.
-
-The `.storekit` file is for Xcode testing. Products, pricing, Family Sharing, localization and agreements must also be configured in App Store Connect. The app displays Apple's localized product price and disables purchase when product metadata is unavailable.
+The three products created for earlier builds are historical App Store Connect records; their availability and review state must be verified in ASC separately from the source change.
 
 ## Sources
 
@@ -46,4 +38,3 @@ The `.storekit` file is for Xcode testing. Products, pricing, Family Sharing, lo
 - [Turn forwarding](https://developer.apple.com/documentation/gamekit/gkturnbasedmatch/1520765-endturn)
 - [Exchange timeouts](https://developer.apple.com/documentation/gamekit/exchange-timeouts)
 - [Ending a match](https://developer.apple.com/documentation/gamekit/gkturnbasedmatch/endmatchinturn(withmatch:completionhandler:))
-- [StoreKit entitlements](https://developer.apple.com/documentation/storekit/transaction/currententitlements)

@@ -2,7 +2,7 @@
 
 These sources are unretouched native simulator screenshots. Only the PNG's EXIF
 orientation is applied to the pixel canvas on export. App text, controls, board
-positions, and purchase screens are not painted or composited into the captures.
+positions, and finish screens are not painted or composited into the captures.
 
 `CampaignFixture.swift` compiles alongside the five MarblezzzCore source files.
 It advances real rule-engine actions from seeded deals, validates each resulting
@@ -21,9 +21,8 @@ generated JSON saves into its data container under
 `MarblezzzUITests/MarketingCaptureTests` with test-without-building. The fixture
 files' base64 names are the app's normal persistence keys.
 
-The harness uses StoreKit Test transactions for the app's actual Friends and
-Walnut product identifiers. It selects the owned walnut finish through the real
-table shop. These are local test purchases, not production purchase claims.
+For 26.10.01, the harness selects the included walnut finish through the real
+Board finishes picker. No StoreKit configuration or transaction is required.
 No online matches or remote players are represented.
 
 Capture settings: portrait, light appearance, default Large text category,
@@ -35,8 +34,8 @@ status bar 9:41, full Wi-Fi, 100% battery. Devices are iPhone 18 Pro Max
 3. Native home with Resume solo and Resume table.
 4. Private pass-and-play handoff, with all cards concealed.
 5. Opening tutorial lesson.
-6. The same midgame with purchased Midnight walnut selected.
-7. Bonus real shop showing the selected walnut finish.
+6. The same midgame with included Midnight walnut selected.
+7. Bonus real finish picker showing the selected walnut finish.
 
 Export attachments with `xcrun xcresulttool export attachments --path RESULT
 --output-path RAW`. Run `export_captures.py RAW DESTINATION` with a Python runtime
@@ -65,3 +64,11 @@ indicators were absent from the iPhone previews. Both capture runs passed;
 the source images and twelve campaign exports were visually reviewed, and
 `validate_assets.py` passed. The App Store listing was not changed as part of
 this TestFlight-only update.
+
+For 26.10.01 (8), seven native screens were recaptured on iPhone 18 Pro Max and
+iPad Pro 13-inch (iOS/iPadOS 27). The harness resets the finish through the real
+picker to Original maple, then selects included Midnight walnut. Both final runs
+passed. Twelve regenerated campaign screenshots passed pixel-format, dimensions,
+color-profile, alpha and metadata checks and were visually reviewed. Paid-access
+disclosures have been removed from the exports. The temporary capture source was
+removed from the normal test target before the release gate.

@@ -1,5 +1,4 @@
 import XCTest
-import StoreKitTest
 
 @MainActor final class MarblezzzUITests: XCTestCase {
     private var app: XCUIApplication!
@@ -85,15 +84,16 @@ import StoreKitTest
         }
         XCTFail("The test game had no playable card.")
     }
-    func testFriendsModeIsGated() {
+    func testOnlineModeOpensWithoutPurchase() {
         app.launch()
-        app.buttons["pass-and-play"].tap()
-        XCTAssertTrue(app.staticTexts["Friends for good"].waitForExistence(timeout: 5))
-        XCTAssertFalse(app.buttons["start-table"].exists)
-        attach("Friends storefront")
+        waitForHome()
+        tapVisible(app.buttons["play-online"])
+        XCTAssertTrue(app.buttons["Sign in to Game Center"].waitForExistence(timeout: 5)
+                      || app.buttons["Set up a new table"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["Restore purchases"].exists)
+        attach("Online play available without purchase")
     }
     func testPassAndPlayHidesHandUntilReveal() {
-        app.launchArguments += ["--friends-unlocked"]
         app.launch()
         waitForHome()
         if app.buttons["new-pass-and-play"].exists {
@@ -189,27 +189,29 @@ import StoreKitTest
         XCTAssertEqual(before, after)
     }
 
-    func testPendingPurchaseShowsVisibleResult() throws {
-        let configuration = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "Marblezzz", withExtension: "storekit"))
-        let session = try SKTestSession(contentsOf: configuration)
-        session.resetToDefaultState()
-        session.clearTransactions()
-        session.disableDialogs = true
-        session.askToBuyEnabled = true
-        defer { session.clearTransactions(); session.resetToDefaultState() }
+    func testAllFinishesAreIncludedAndSelectionPersists() {
         app.launch()
         waitForHome()
-        app.buttons["Table shop"].tap()
-        let buy = app.buttons["buy-com.marblezzz.friends"]
-        XCTAssertTrue(buy.waitForExistence(timeout: 10))
-        tapVisible(buy)
-        let alert = app.alerts["Store update"]
-        XCTAssertTrue(alert.waitForExistence(timeout: 10))
-        XCTAssertTrue(alert.staticTexts["Your purchase is awaiting approval. We'll unlock it when Apple confirms it."].exists)
-        attach("Visible pending purchase result")
-        alert.buttons["OK"].tap()
-        XCTAssertFalse(alert.exists)
-        XCTAssertTrue(buy.isEnabled)
+        app.buttons["Board finishes"].tap()
+        for theme in ["original", "walnut", "coastal"] {
+            let finish = app.buttons["finish-\(theme)"]
+            tapVisibleIfEnabled(finish)
+            XCTAssertFalse(finish.isEnabled)
+        }
+        XCTAssertFalse(app.buttons["Restore purchases"].exists)
+        attach("All board finishes included")
+        app.buttons["Done"].tap()
+        app.terminate(); app.launch()
+        waitForHome()
+        app.buttons["Board finishes"].tap()
+        let selected = app.buttons["finish-coastal"]
+        XCTAssertTrue(selected.waitForExistence(timeout: 5))
+        XCTAssertFalse(selected.isEnabled)
+    }
+
+    private func tapVisibleIfEnabled(_ element: XCUIElement) {
+        XCTAssertTrue(element.waitForExistence(timeout: 5))
+        if element.isEnabled { tapVisible(element) }
     }
 
     private func waitForHome() {

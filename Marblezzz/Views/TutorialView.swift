@@ -79,7 +79,7 @@ struct SettingsView: View {
                         .font(.caption).foregroundStyle(.secondary)
                 }
                 Section("Privacy") {
-                    Text("Solo and pass-and-play stay on this device. Online games use Game Center. Purchases use Apple's StoreKit. Marblezzz includes no advertising or third-party analytics.")
+                    Text("Solo and pass-and-play stay on this device. Online games use Game Center. Marblezzz includes no advertising or third-party analytics.")
                     Text("Hands are private in normal play. Game Center's shared match data is not a server-enforced anti-cheat system.")
                         .font(.caption).foregroundStyle(.secondary)
                     if let privacyURL = URL(string: "https://martyportatoes.github.io/Marblezzz/privacy/") {

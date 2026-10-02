@@ -1,3 +1,17 @@
+# Free release validation — October 1, 2026
+
+26.10.01 (8) removes the purchase system and grants all modes and finishes without entitlements. The following checks passed against the updated source:
+
+- 35 core test functions, including 60 seeded complete games.
+- 25 model tests, including free pass-and-play start/play/resume, free online setup, and online completion recovery without test purchases.
+- All 12 iPhone UI tests, including online entry without a purchase, free pass-and-play handoff, and selecting every finish with persistence across relaunch.
+- Unsigned generic iOS Release build.
+- Fresh iPhone 6.9-inch and iPad 13-inch native campaign capture. The included finish selector is exercised without StoreKit Test.
+
+The physical iPhone is paired but disconnected; no updated physical-device result is claimed. Live multi-account Game Center, iOS 18, VoiceOver and Instruments results remain separate from this local regression evidence. The strict committed-source gate and signed archive will be recorded after completion.
+
+## Historical verification
+
 # Verification record
 
 Recorded September 20, 2026, with Xcode 27.0 (27A266a), Swift 6.4, and macOS 27. No production purchases, external publishing, or Apple account configuration were performed.

@@ -23,4 +23,4 @@ export QA_DESTINATION='id=your-iOS-27-iPhone-simulator-UDID'
 
 The gate validates the current screenshot exports against their reviewed hashes. If UI changes affect a captured screen, refresh it using the Simulator and Computer Use, visually review the native and framed images, rerun `marketing/tools/validate_assets.py`, and commit the new assets and validation record before uploading.
 
-Real Game Center matches, real-device accessibility, and Apple sandbox purchase/restore checks remain required before App Review. See `docs/RELEASE_CHECKLIST.md`.
+Real Game Center matches, real-device accessibility, checks remain required before App Review. See `docs/RELEASE_CHECKLIST.md`.

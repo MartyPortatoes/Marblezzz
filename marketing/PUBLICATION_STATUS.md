@@ -1,3 +1,17 @@
+# Free update — October 1, 2026
+
+Marblezzz **26.10.01 (8)** removes every paywall. Solo, pass-and-play, private Game Center play, Original maple, Midnight walnut, and Coastal oak are included. The former shop is an included-finish picker; StoreKit services, product IDs, entitlement checks, restore flows, and the local purchase catalog are removed. Save formats and the `boardTheme` key are preserved.
+
+Live App Store Connect readback on October 1 found **26.09.01 (7) READY_FOR_SALE**, with its September submission COMPLETE and all four items APPROVED. That supersedes the historical Waiting for Review snapshot below.
+
+The 26.10.01 draft is `dc9baf9b-52ee-4aa9-9fc2-5dd687c42c75`, PREPARE_FOR_SUBMISSION, with manual release while validation is in progress. Review notes now describe free access. The three historical non-consumables remain approved; no purchases will be attached to this update.
+
+Automated verification: 35 core test functions (including 60 seeded full-game cases), 25 native model tests, all 12 iPhone UI tests, and an unsigned Release device build passed. Fresh native iPhone/iPad campaign capture passed. Simulator evidence does not certify physical-device or live multiplayer behavior. The paired physical iPhone could not be reached; its connection was disconnected.
+
+Upload, final screenshot readback, physical smoke validation, App Review submission, and public availability remain pending. Local evidence is in ignored `artifacts/release-26.10.01/` and `/tmp/marblezzz-free-*`.
+
+## Historical September release record
+
 # App Store Connect publication — September 25, 2026
 
 Marblezzz **26.09.01 (7)** and its three non-consumable purchases were submitted together to Apple App Review on September 25, 2026. App Store Connect reports all four items **Waiting for Review** in submission `81609297-b53e-4a74-b9d6-62b216c2aac0`. Release is set to manual; the app is not public. Build 7 remains in the private internal TestFlight group for the account holder.

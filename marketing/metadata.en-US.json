@@ -1,15 +1,16 @@
 {
   "locale": "en-US",
-  "status": "uploaded_to_asc_not_submitted_for_review",
+  "status": "free_release_preparation",
   "appStore": {
     "name": "Marblezzz",
     "subtitle": "A little luck. All teamwork.",
-    "promotionalText": "A card-powered marble game for a little friendly rivalry. Play solo free, plan every move, and race home with your partner. Friends play is a separate purchase.",
-    "description": "Race home together in a card-powered marble game made for friendly rivalry.\n\nPick a card, preview your move, and look out for your partner. Pass opponents, send them back to the start, or switch places with a jack. Bring your own five marbles home, then help your partner finish the job.\n\nA SEAT AT THE TABLE\nPlay solo for free, even offline, with Easy or Standard computer players. Follow ten short lessons to learn the rules. Save your solo or pass-and-play game and return to it on the same device.\n\nROOM FOR FRIENDS\nThe one-time Friends purchase unlocks pass-and-play and private online games through Apple Game Center. Play with two to four people in total, including you; computers fill the remaining seats. Pass-and-play keeps each hand hidden until its player is ready.\n\nA FINISH THAT FEELS LIKE YOU\nOriginal maple is included. Optional Midnight walnut and Coastal oak theme packs change the board, marble finish, and card-back color together. Cosmetics never affect the rules or unlock Friends access.\n\nFriends access is required for each online player. One Friends purchase covers everyone sharing a device for pass-and-play. Cosmetic theme packs are separate purchases. Online play requires Game Center and an internet connection.\n\nMade for iPhone and iPad. No advertising or third-party analytics.",
+    "promotionalText": "A card-powered marble game for friendly rivalry. Play solo, share a device, or invite friends online. Every game mode and all three board finishes are free.",
+    "description": "Race home together in a card-powered marble game made for friendly rivalry.\n\nPick a card, preview your move, and look out for your partner. Pass opponents, send them back to the start, or switch places with a jack. Bring your own five marbles home, then help your partner finish the job.\n\nA SEAT AT THE TABLE\nPlay solo for free, even offline, with Easy or Standard computer players. Follow ten short lessons to learn the rules. Save your solo or pass-and-play game and return to it on the same device.\n\nROOM FOR FRIENDS\nPass-and-play and private online games through Apple Game Center are included for everyone. Play with two to four people in total, including you; computers fill the remaining seats. Pass-and-play keeps each hand hidden until its player is ready.\n\nA FINISH THAT FEELS LIKE YOU\nOriginal maple, Midnight walnut, and Coastal oak are all included. Choose a finish for your board, marbles, and card backs. Every finish plays by the same rules.\n\nAll game modes and finishes are free, with no in-app purchases. Online play requires Game Center and an internet connection.\n\nMade for iPhone and iPad. No advertising or third-party analytics.",
     "keywords": "board,marbles,cards,teamwork,partners,strategy,offline,tabletop,turn based",
     "supportURL": "https://martyportatoes.github.io/Marblezzz/support/",
     "privacyPolicyURL": "https://martyportatoes.github.io/Marblezzz/privacy/",
-    "marketingURL": "https://martyportatoes.github.io/Marblezzz/"
+    "marketingURL": "https://martyportatoes.github.io/Marblezzz/",
+    "releaseNotes": "Marblezzz is now completely free. Pass-and-play, private online games, Midnight walnut, and Coastal oak are included for everyone. We removed the shop, purchase prompts, and restore flow. Choose any finish from Board finishes on the home screen."
   },
   "lengthChecks": {
     "name": {
@@ -21,11 +22,11 @@
       "maximum": 30
     },
     "promotionalText": {
-      "characters": 160,
+      "characters": 156,
       "maximum": 170
     },
     "description": {
-      "characters": 1309,
+      "characters": 1151,
       "maximum": 4000
     },
     "keywords": {
@@ -63,7 +64,7 @@
       "key": "pass-and-play",
       "headline": "Pass. Reveal. Play.",
       "subcopy": "Keep your cards private. Share one device with friends.",
-      "disclosure": "Pass-and-play requires the Friends purchase.",
+      "disclosure": null,
       "captureRequirement": "Actual private handoff with fictional or default player names."
     },
     {
@@ -78,8 +79,8 @@
       "order": 6,
       "key": "finishes",
       "headline": "Make it yours.",
-      "subcopy": "Find your favorite look. Explore optional board finishes.",
-      "disclosure": "Optional finishes sold separately.",
+      "subcopy": "Find your favorite look. All three board finishes are included.",
+      "disclosure": null,
       "captureRequirement": "Actual app using or presenting the named theme; theme components are a bundle, not separate selectors."
     }
   ],
@@ -151,13 +152,12 @@
       "marketing/source-captures/iphone/provenance.json",
       "marketing/source-captures/ipad/provenance.json"
     ],
-    "visuallyReviewedAt": "2026-09-24T03:15:03.413877+00:00"
+    "visuallyReviewedAt": "2026-10-02T02:20:00Z"
   },
   "editorialNotes": [
     "Only appStore field values are listing copy. Do not upload editorial notes or this manifest as customer-facing text.",
     "The online-play sentence describes implemented functionality and is conditional on passing the existing real Game Center release gates before publication.",
     "Do not claim cross-device sync for solo/pass-and-play saves, server-enforced anti-cheat, proven live multiplayer, or reliable timeout substitution.",
-    "Friends Family Sharing must be configured and verified in App Store Connect before promoting it.",
     "Provide publisher identity, support contact, support URL, privacy policy URL, and actual App Store Connect product configuration before submission.",
     "The new icon is integrated into the app asset catalog. Validate it in a signed candidate build before upload."
   ],

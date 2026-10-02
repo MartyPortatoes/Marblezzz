@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "760773646BF4EBD8B51B6F0C"
+               BlueprintIdentifier = "7A03C2006195D2D030B01F74"
                BuildableName = "Marblezzz.app"
                BlueprintName = "Marblezzz"
                ReferencedContainer = "container:Marblezzz.xcodeproj">
@@ -30,7 +30,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "760773646BF4EBD8B51B6F0C"
+            BlueprintIdentifier = "7A03C2006195D2D030B01F74"
             BuildableName = "Marblezzz.app"
             BlueprintName = "Marblezzz"
             ReferencedContainer = "container:Marblezzz.xcodeproj">
@@ -41,7 +41,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "99C209941E44B85DD763D569"
+               BlueprintIdentifier = "362014903B633361D29015E2"
                BuildableName = "MarblezzzTests.xctest"
                BlueprintName = "MarblezzzTests"
                ReferencedContainer = "container:Marblezzz.xcodeproj">
@@ -51,7 +51,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3C6B996674C44CECD007B5AF"
+               BlueprintIdentifier = "5091F8B24C6B11AEC97B9D33"
                BuildableName = "MarblezzzUITests.xctest"
                BlueprintName = "MarblezzzUITests"
                ReferencedContainer = "container:Marblezzz.xcodeproj">
@@ -73,15 +73,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "760773646BF4EBD8B51B6F0C"
+            BlueprintIdentifier = "7A03C2006195D2D030B01F74"
             BuildableName = "Marblezzz.app"
             BlueprintName = "Marblezzz"
             ReferencedContainer = "container:Marblezzz.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <StoreKitConfigurationFileReference
-         identifier = "../../Marblezzz/Resources/Marblezzz.storekit">
-      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -93,7 +90,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "760773646BF4EBD8B51B6F0C"
+            BlueprintIdentifier = "7A03C2006195D2D030B01F74"
             BuildableName = "Marblezzz.app"
             BlueprintName = "Marblezzz"
             ReferencedContainer = "container:Marblezzz.xcodeproj">

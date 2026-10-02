@@ -52,7 +52,6 @@ struct BoardCanvas: View {
 
 struct GameTableView: View {
     @EnvironmentObject private var model: GameModel
-    @EnvironmentObject private var purchases: PurchaseStore
     @EnvironmentObject private var transport: GameCenterTransport
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @ScaledMetric(relativeTo: .title2) private var cardWidth: CGFloat = 53
@@ -207,10 +206,7 @@ struct GameTableView: View {
     @ViewBuilder private func controls(_ session: MatchEnvelope, _ game: GameState) -> some View {
         VStack(spacing: 15) {
             if session.isFinished { result(session, game) }
-            else if session.settings.mode != .solo && !purchases.hasFriends {
-                Text("Friends access is needed to continue this table.").font(.headline)
-                Button("View Friends unlock") { model.showStore = true }.buttonStyle(PrimaryButton())
-            } else if session.settings.mode == .passAndPlay && !model.handRevealed && model.viewingSeat != nil {
+            else if session.settings.mode == .passAndPlay && !model.handRevealed && model.viewingSeat != nil {
                 Image(systemName: "hand.raised").font(.largeTitle).padding(.top, 10)
                 Text("Pass to \(session.settings.seats[game.activeSeat.rawValue].name)").font(.system(.title2, design: .serif))
                 Text("Your partner is \(session.settings.seats[game.activeSeat.partner.rawValue].name). Your cards stay private.")

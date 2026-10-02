@@ -27,7 +27,7 @@ Dir.glob(File.join(root, 'Marblezzz', '**', '*.swift')).sort.each do |path|
   reference = group.new_file(path.delete_prefix(File.join(root,'Marblezzz') + '/'))
   app.source_build_phase.add_file_reference(reference)
 end
-['Resources/Localizable.xcstrings', 'Resources/PrivacyInfo.xcprivacy', 'Resources/Marblezzz.storekit', 'Assets.xcassets'].each do |path|
+['Resources/Localizable.xcstrings', 'Resources/PrivacyInfo.xcprivacy', 'Assets.xcassets'].each do |path|
   app.resources_build_phase.add_file_reference(group.new_file(path))
 end
 group.new_file('Info.plist'); group.new_file('Marblezzz.entitlements')
@@ -62,7 +62,6 @@ tests = project.new_target(:unit_test_bundle, 'MarblezzzTests', :ios, '18.0')
 tests.add_dependency(app)
 test_group = project.main_group.new_group('MarblezzzTests', 'MarblezzzTests')
 Dir.glob(File.join(root,'MarblezzzTests','*.swift')).sort.each { |p| tests.source_build_phase.add_file_reference(test_group.new_file(File.basename(p))) }
-tests.resources_build_phase.add_file_reference(group.files.find { |f| f.path == 'Resources/Marblezzz.storekit' })
 add_core(project, tests, local_package)
 tests.build_configurations.each do |config|
   config.build_settings.merge!({ 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.marblezzz.app.tests', 'GENERATE_INFOPLIST_FILE' => 'YES',
@@ -73,7 +72,6 @@ ui = project.new_target(:ui_test_bundle, 'MarblezzzUITests', :ios, '18.0')
 ui.add_dependency(app)
 ui_group = project.main_group.new_group('MarblezzzUITests', 'MarblezzzUITests')
 Dir.glob(File.join(root,'MarblezzzUITests','*.swift')).sort.each { |p| ui.source_build_phase.add_file_reference(ui_group.new_file(File.basename(p))) }
-ui.resources_build_phase.add_file_reference(group.files.find { |f| f.path == 'Resources/Marblezzz.storekit' })
 ui.build_configurations.each do |config|
   config.build_settings.merge!({ 'PRODUCT_BUNDLE_IDENTIFIER' => 'com.marblezzz.app.uitests', 'GENERATE_INFOPLIST_FILE' => 'YES',
     'SWIFT_VERSION' => '6.0', 'TEST_TARGET_NAME' => 'Marblezzz', 'TARGETED_DEVICE_FAMILY' => '1,2' })
@@ -86,7 +84,5 @@ scheme.add_test_target(ui)
 scheme.set_launch_target(app)
 scheme.test_action.build_configuration = 'Debug'
 scheme.launch_action.build_configuration = 'Debug'
-storekit = scheme.launch_action.xml_element.add_element('StoreKitConfigurationFileReference')
-storekit.add_attribute('identifier', '../../Marblezzz/Resources/Marblezzz.storekit')
 scheme.save_as(project.path, 'Marblezzz', true)
 puts 'Generated Marblezzz.xcodeproj'

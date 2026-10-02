@@ -18,7 +18,7 @@ def visit(value):
     if isinstance(value, dict):
         name = value.get("suggestedHumanReadableName", value.get("name", ""))
         filename = value.get("exportedFileName", value.get("filename", ""))
-        match = re.search(r"0[1-7]-(?:gameplay|preview|solo|handoff|tutorial|finish|shop)", name)
+        match = re.search(r"0[1-7]-(?:gameplay|preview|solo|handoff|tutorial|finishes|finish|shop)", name)
         if match and filename.endswith(".png"):
             original = source / filename
             output = destination / (match.group() + ".png")

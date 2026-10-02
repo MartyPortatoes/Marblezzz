@@ -1,6 +1,5 @@
 import XCTest
 import Combine
-import StoreKitTest
 import MarblezzzCore
 @testable import Marblezzz
 
@@ -9,22 +8,42 @@ import MarblezzzCore
     private var snapshots: SnapshotStore!
     private var transport: SuspendedMatchTransport!
     private var model: GameModel!
-    private var purchaseSession: SKTestSession?
 
     override func setUp() async throws {
         directory = FileManager.default.temporaryDirectory.appending(path: "MarblezzzModelTests-\(UUID())", directoryHint: .isDirectory)
         snapshots = SnapshotStore(directory: directory)
         transport = SuspendedMatchTransport()
-        model = GameModel(purchases: PurchaseStore(), transport: transport, snapshots: snapshots)
+        model = GameModel(transport: transport, snapshots: snapshots)
         model.hapticsEnabled = false
     }
     override func tearDown() async throws {
         model.leaveTable()
         transport.cancelPending()
-        purchaseSession?.clearTransactions(); purchaseSession = nil
         model = nil; transport = nil; snapshots = nil
         if FileManager.default.fileExists(atPath: directory.path) { try FileManager.default.removeItem(at: directory) }
         directory = nil
+    }
+
+    func testPassAndPlayStartsPlaysAndResumesWithoutPurchase() async throws {
+        await model.startLocal(MatchSettings(mode: .passAndPlay, humanSeats: Set(Seat.allCases)))
+        let id = try XCTUnwrap(model.session?.id)
+        XCTAssertFalse(model.handRevealed)
+        model.handRevealed = true
+        XCTAssertTrue(model.canPlay)
+        let action = try XCTUnwrap(model.legalActions.first)
+        await model.commit(action)
+        XCTAssertFalse(model.handRevealed)
+        model.leaveTable()
+        await model.resume(.passAndPlay)
+        XCTAssertEqual(model.session?.id, id)
+        XCTAssertFalse(model.handRevealed)
+    }
+
+    func testOnlineSetupNeedsAuthenticationButNoPurchase() {
+        transport.playerID = "player"
+        model.beginOnline(MatchSettings(mode: .online, humanSeats: [.red, .yellow]), hostSeat: .red)
+        XCTAssertTrue(model.showMatchmaker)
+        XCTAssertEqual(transport.pendingSettings?.mode, .online)
     }
 
     func testReadinessCannotReplaceNewLocalGame() async throws {
@@ -203,7 +222,6 @@ import MarblezzzCore
     }
 
     func testOpenCompletionAfterLeavingDoesNotLoadOldTable() async throws {
-        try await unlockFriends()
         let request = Task { await model.openOnline("old") }
         try await transport.waitFor(.accept, matchID: "old")
         model.leaveTable()
@@ -217,7 +235,6 @@ import MarblezzzCore
     }
 
     func testFailedCommitRecoveryCannotRestoreTableAfterLeaving() async throws {
-        try await unlockFriends()
         var old = installOnlineTable("old")
         try old.markReady(playerID: "player")
         try old.markReady(playerID: "friend")
@@ -377,19 +394,7 @@ import MarblezzzCore
         XCTAssertEqual(selection?.action, GameAction(card: jack, kind: .swap(0, 5)))
     }
 
-    private func unlockFriends() async throws {
-        let testSession = try SKTestSession(configurationFileNamed: "Marblezzz")
-        purchaseSession = testSession
-        testSession.resetToDefaultState(); testSession.disableDialogs = true; testSession.clearTransactions()
-        _ = try await testSession.buyProduct(identifier: ProductID.friends)
-        for _ in 0..<50 {
-            await model.purchases.refreshEntitlements()
-            if model.purchases.hasFriends { return }
-            try await Task.sleep(for: .milliseconds(100))
-        }
-        throw ModelTestFailure.entitlementNotDelivered
-    }
-    private enum ModelTestFailure: Error { case entitlementNotDelivered, operationDidNotFinish }
+    private enum ModelTestFailure: Error { case operationDidNotFinish }
 
     @discardableResult private func installOnlineTable(_ id: String) -> MatchEnvelope {
         var settings = MatchSettings(mode: .online, humanSeats: [.red, .yellow])
@@ -418,7 +423,6 @@ import MarblezzzCore
     var identityChanges: AnyPublisher<String?, Never> { identity.eraseToAnyPublisher() }
     let matchEvents = PassthroughSubject<String, Never>()
     let matchActivations = PassthroughSubject<String, Never>()
-    var hasFriendsAccess: () -> Bool = { false }
     var pendingSettings: MatchSettings?
     var pendingHostSeat: Seat = .red
     func authenticate() {}

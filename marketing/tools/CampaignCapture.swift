@@ -1,23 +1,21 @@
 // Copy temporarily to MarblezzzUITests/MarketingCaptureTests.swift and regenerate
 // the project. Seed validated snapshots with CampaignFixture before running.
 import XCTest
-import StoreKitTest
 
 @MainActor final class MarketingCaptureTests: XCTestCase {
     private var app: XCUIApplication!
     func testCampaignScreens() async throws {
         continueAfterFailure = false
         XCUIDevice.shared.orientation = .portrait
-        let configuration = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "Marblezzz", withExtension: "storekit"))
-        let store = try SKTestSession(contentsOf: configuration)
-        store.resetToDefaultState(); store.clearTransactions(); store.disableDialogs = true
-        _ = try await store.buyProduct(identifier: "com.marblezzz.friends")
-        _ = try await store.buyProduct(identifier: "com.marblezzz.walnut")
-        defer { store.clearTransactions(); store.resetToDefaultState() }
         app = XCUIApplication()
         app.launchArguments = ["--uitesting", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryL"]
         app.launch()
         XCTAssertTrue(app.buttons["resume-solo"].waitForExistence(timeout: 15))
+        app.buttons["Board finishes"].tap()
+        let original = app.buttons["finish-original"]
+        XCTAssertTrue(original.waitForExistence(timeout: 5))
+        if original.isEnabled { tapVisible(original) }
+        app.buttons["Done"].tap()
         try await capture("03-solo")
         tapVisible(app.buttons["learn-to-play"])
         XCTAssertTrue(app.staticTexts["Two teams. One way home."].waitForExistence(timeout: 5))
@@ -38,18 +36,17 @@ import StoreKitTest
         XCTAssertTrue(app.buttons["reveal-hand"].waitForExistence(timeout: 10))
         try await capture("04-handoff")
         app.buttons["Save and leave table"].tap()
-        app.buttons["Table shop"].tap()
-        XCTAssertTrue(app.staticTexts["Friends unlocked"].waitForExistence(timeout: 10))
-        tapVisible(app.buttons["Use finish"].firstMatch)
+        app.buttons["Board finishes"].tap()
+        tapVisible(app.buttons["finish-walnut"])
         XCTAssertTrue(app.staticTexts["Midnight walnut"].exists)
-        try await capture("07-shop")
+        try await capture("07-finishes")
         app.buttons["Done"].tap()
         tapVisible(app.buttons["resume-solo"])
         XCTAssertTrue(app.staticTexts["turn-title"].waitForExistence(timeout: 10))
         try await capture("06-finish")
     }
     private func capture(_ name: String) async throws {
-        try await Task.sleep(for: .milliseconds(650))
+        try await Task.sleep(for: .seconds(2))
         let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         attachment.name = name; attachment.lifetime = .keepAlways; add(attachment)
     }
@@ -64,7 +61,7 @@ import StoreKitTest
             let origin = app.coordinate(withNormalizedOffset: .zero)
             // iPad's storefront is a centered sheet; a drag near the app edge
             // hits the dimmed home view. Keep sheet gestures within its center.
-            let inShop = app.staticTexts["The table shop"].exists
+            let inShop = app.staticTexts["Board finishes"].exists
             let x = inShop ? app.frame.midX : viewport.minX + viewport.width * 0.85
             let top = inShop ? app.frame.height * 0.45 : viewport.minY + viewport.height * 0.30
             let bottom = inShop ? app.frame.height * 0.67 : viewport.minY + viewport.height * 0.75

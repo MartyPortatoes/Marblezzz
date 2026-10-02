@@ -2,13 +2,12 @@ import SwiftUI
 import MarblezzzCore
 
 private enum RootSheet: String, Identifiable {
-    case tutorial, settings, passSetup, online, onlineSetup
+    case tutorial, settings, finishes, passSetup, online, onlineSetup
     var id: String { rawValue }
 }
 
 struct RootView: View {
     @EnvironmentObject private var model: GameModel
-    @EnvironmentObject private var purchases: PurchaseStore
     @EnvironmentObject private var transport: GameCenterTransport
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -21,8 +20,7 @@ struct RootView: View {
     @State private var showReplacementConfirmation = false
     @State private var replacingPassSave = false
     private var theme: BoardTheme {
-        let selected = BoardTheme(rawValue: themeName) ?? .original
-        return purchases.owns(selected.productID) ? selected : .original
+        BoardTheme(rawValue: themeName) ?? .original
     }
     var body: some View {
         NavigationStack {
@@ -31,8 +29,9 @@ struct RootView: View {
                     GameTableView(theme: theme)
                 } else {
                     HomeView(theme: theme, onSolo: openSolo, onPass: openPassAndPlay,
-                             onOnline: { if purchases.hasFriends { sheet = .online } else { model.showStore = true } },
+                             onOnline: { sheet = .online },
                              onLearn: { sheet = .tutorial }, onSettings: { sheet = .settings },
+                             onFinishes: { sheet = .finishes },
                              onNewSolo: { requestReplacement(.solo) },
                              onNewPass: { requestReplacement(.passAndPlay) })
                         .alert("Replace your saved game?", isPresented: $showReplacementConfirmation,
@@ -62,6 +61,7 @@ struct RootView: View {
             switch destination {
             case .tutorial: TutorialView()
             case .settings: SettingsView()
+            case .finishes: BoardFinishesView()
             case .passSetup:
                 TableSetupView(mode: .passAndPlay) { settings, _ in
                     let replace = replacingPassSave
@@ -79,7 +79,6 @@ struct RootView: View {
                 }
             }
         }
-        .sheet(isPresented: $model.showStore) { StorefrontView() }
         .sheet(isPresented: $model.showMatchmaker) {
             GameCenterMatchmaker(humanCount: transport.pendingSettings?.humanCount ?? 4,
                                 onDismiss: { model.showMatchmaker = false; transport.pendingSettings = nil },
@@ -99,7 +98,7 @@ struct RootView: View {
         .onChange(of: haptics) { _, value in model.hapticsEnabled = value }
         .onChange(of: scenePhase) { _, phase in
             model.setActive(phase == .active)
-            if phase == .active { Task { await purchases.refreshEntitlements(); await model.refreshOnline() } }
+            if phase == .active { Task { await model.refreshOnline() } }
         }
     }
     private func openSolo() {
@@ -112,12 +111,10 @@ struct RootView: View {
         MatchSettings(difficulty: BotDifficulty(rawValue: difficultyName) ?? .standard)
     }
     private func openPassAndPlay() {
-        guard purchases.hasFriends else { model.showStore = true; return }
         if model.availableSaves.contains(.passAndPlay) { Task { await model.resume(.passAndPlay) } }
         else { replacingPassSave = false; sheet = .passSetup }
     }
     private func requestReplacement(_ mode: PlayMode) {
-        guard mode == .solo || purchases.hasFriends else { model.showStore = true; return }
         replacementMode = mode; showReplacementConfirmation = true
     }
     private func replaceSavedGame(_ mode: PlayMode) {
@@ -129,13 +126,13 @@ struct RootView: View {
 
 struct HomeView: View {
     @EnvironmentObject private var model: GameModel
-    @EnvironmentObject private var purchases: PurchaseStore
     let theme: BoardTheme
     let onSolo: () -> Void
     let onPass: () -> Void
     let onOnline: () -> Void
     let onLearn: () -> Void
     let onSettings: () -> Void
+    let onFinishes: () -> Void
     let onNewSolo: () -> Void
     let onNewPass: () -> Void
     private var displayMarbles: [Marble] {
@@ -203,13 +200,13 @@ struct HomeView: View {
         .foregroundStyle(Palette.pine)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) { Button(action: onSettings) { Image(systemName: "slider.horizontal.3") }.accessibilityLabel("Settings") }
-            ToolbarItem(placement: .topBarTrailing) { Button { model.showStore = true } label: { Image(systemName: "bag") }.accessibilityLabel("Table shop") }
+            ToolbarItem(placement: .topBarTrailing) { Button("Board finishes", systemImage: "paintpalette", action: onFinishes) }
         }
     }
     private func modeButton(_ title: String, detail: String, icon: String, identifier: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(alignment: .leading, spacing: 9) {
-                HStack { Image(systemName: icon).font(.title3); Spacer(); if !purchases.hasFriends { Image(systemName: "lock").font(.caption2) } }
+                HStack { Image(systemName: icon).font(.title3); Spacer() }
                 Text(title).font(.subheadline.weight(.semibold))
                 Text(detail).font(.caption2).foregroundStyle(Palette.secondary)
             }.padding(16).frame(maxWidth: .infinity, alignment: .leading)

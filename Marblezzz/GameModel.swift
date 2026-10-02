@@ -11,9 +11,7 @@ import AudioToolbox
     @Published private(set) var busy = false
     @Published var handRevealed = false
     @Published var availableSaves = Set<PlayMode>()
-    @Published var showStore = false
     @Published var showMatchmaker = false
-    let purchases: PurchaseStore
     let transport: any MatchTransport
     let snapshots: SnapshotStore
     private var botTask: Task<Void, Never>?
@@ -36,11 +34,10 @@ import AudioToolbox
         var matchID: String?
     }
 
-    init(purchases: PurchaseStore, transport: any MatchTransport, snapshots: SnapshotStore? = nil) {
-        self.purchases = purchases; self.transport = transport
+    init(transport: any MatchTransport, snapshots: SnapshotStore? = nil) {
+        self.transport = transport
         let directory = URL.applicationSupportDirectory.appendingPathComponent("Marblezzz", isDirectory: true)
         self.snapshots = snapshots ?? SnapshotStore(directory: directory)
-        transport.hasFriendsAccess = { [weak purchases] in purchases?.hasFriends ?? false }
         transport.matchEvents.sink { [weak self] id in
             self?.queueMatchEvent(id)
         }.store(in: &subscriptions)
@@ -68,7 +65,7 @@ import AudioToolbox
     }
     var canPlay: Bool {
         guard !busy, let game, let seat = viewingSeat, game.result == nil, session?.cancelled == false else { return false }
-        return game.activeSeat == seat && handRevealed && (session?.settings.mode == .solo || purchases.hasFriends)
+        return game.activeSeat == seat && handRevealed
     }
     var legalActions: [GameAction] { guard canPlay, let game else { return [] }; return GameRules.legalActions(in: game) }
 
@@ -144,7 +141,6 @@ import AudioToolbox
         availableSaves = result
     }
     func startLocal(_ settings: MatchSettings, replacingSavedGame: Bool = false) async {
-        guard settings.mode == .solo || purchases.hasFriends else { showStore = true; return }
         guard !busy else { return }
         invalidateSessionWork()
         guard var operation = beginOperation() else { return }
@@ -177,7 +173,6 @@ import AudioToolbox
         } catch { report(error, for: operation) }
     }
     func resume(_ mode: PlayMode) async {
-        guard mode == .solo || purchases.hasFriends else { showStore = true; return }
         guard mode != .online, !busy else { return }
         invalidateSessionWork()
         guard var operation = beginOperation() else { return }
@@ -262,12 +257,10 @@ import AudioToolbox
         }
     }
     func beginOnline(_ settings: MatchSettings, hostSeat: Seat) {
-        guard purchases.hasFriends else { showStore = true; return }
         guard transport.authenticated else { transport.authenticate(); return }
         transport.pendingSettings = settings; transport.pendingHostSeat = hostSeat; showMatchmaker = true
     }
     func openOnline(_ id: String) async {
-        guard purchases.hasFriends else { showStore = true; return }
         guard !busy else { return }
         invalidateSessionWork()
         guard var operation = beginOperation(checksAccount: true) else { return }
