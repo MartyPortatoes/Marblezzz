@@ -19,7 +19,7 @@ Solo, pass-and-play, private Game Center play, Original maple, Midnight walnut, 
 | Source | Strict gate and signed archive from clean committed `ef769a3` |
 | Signed IPA | Signature verified, version 26.10.01, build 8; SHA-256 `13825d12e291be58deadcdc6494f5055d022a3497907037cc6f5164aa3a7b388` |
 | Purchase removal | No StoreKit linkage, product IDs, bundled purchase catalog or Debug launch fixture in the IPA |
-| Website | Updated home/support/privacy pages deployed via GitHub Pages run `36955409136`; production files matched before the pending-update notice was added |
+| Website | Updated home/support/privacy pages and pending-update notice deployed via GitHub Pages run `36956564767`; all three production files matched |
 
 Automated verification: 35 core test functions (including 60 seeded full-game cases), 25 native model tests, all 12 iPhone UI tests, and an unsigned Release device build passed. Both final native iPhone/iPad campaign capture runs passed, and twelve regenerated exports passed format and visual review. Local evidence is in ignored `artifacts/release-26.10.01/` and `/tmp/marblezzz-free-*`.
 
