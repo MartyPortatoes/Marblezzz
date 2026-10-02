@@ -8,7 +8,7 @@
 - Unsigned generic iOS Release build.
 - Fresh iPhone 6.9-inch and iPad 13-inch native campaign capture. The included finish selector is exercised without StoreKit Test.
 
-The physical iPhone is paired but disconnected; no updated physical-device result is claimed. Live multi-account Game Center, iOS 18, VoiceOver and Instruments results remain separate from this local regression evidence. The strict committed-source gate and signed archive will be recorded after completion.
+The physical iPhone is paired but disconnected; no updated physical-device result is claimed. Live multi-account Game Center, iOS 18, VoiceOver and Instruments results remain separate from this local regression evidence. The strict gate passed against clean committed source `ef769a3`. Signed App Store archive and IPA export passed. The extracted IPA signature verified; version/build are 26.10.01 (8). It has no StoreKit linkage, legacy product IDs, bundled purchase catalog, or Debug launch fixture. IPA SHA-256: `13825d12e291be58deadcdc6494f5055d022a3497907037cc6f5164aa3a7b388`.
 
 ## Historical verification
 

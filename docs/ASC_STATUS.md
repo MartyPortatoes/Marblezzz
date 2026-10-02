@@ -1,14 +1,36 @@
 # Free update — October 1, 2026
 
-Marblezzz **26.10.01 (8)** removes every paywall. Solo, pass-and-play, private Game Center play, Original maple, Midnight walnut, and Coastal oak are included. The former shop is an included-finish picker; StoreKit services, product IDs, entitlement checks, restore flows, and the local purchase catalog are removed. Save formats and the `boardTheme` key are preserved.
+Marblezzz **26.10.01 (8)** removes every paywall and is **Waiting for Review** in App Store Connect. It was submitted October 1, 2026 at 10:36 PM Eastern in submission `374458bd-3e54-4931-98a1-ff232a35a08a`, with only the app version attached. Release is **manual**. The free update is not yet public; **26.09.01 (7) remains READY_FOR_SALE**.
 
-Live App Store Connect readback on October 1 found **26.09.01 (7) READY_FOR_SALE**, with its September submission COMPLETE and all four items APPROVED. That supersedes the historical Waiting for Review snapshot below.
+Solo, pass-and-play, private Game Center play, Original maple, Midnight walnut, and Coastal oak are included. The former shop is an included-finish picker; StoreKit services, product IDs, entitlement checks, restore flows, and the local purchase catalog are removed. Save formats and the `boardTheme` key are preserved.
 
-The 26.10.01 draft is `dc9baf9b-52ee-4aa9-9fc2-5dd687c42c75`, PREPARE_FOR_SUBMISSION, with manual release while validation is in progress. Review notes now describe free access. The three historical non-consumables remain approved; no purchases will be attached to this update.
+## Verified update state
 
-Automated verification: 35 core test functions (including 60 seeded full-game cases), 25 native model tests, all 12 iPhone UI tests, and an unsigned Release device build passed. Fresh native iPhone/iPad campaign capture passed. Simulator evidence does not certify physical-device or live multiplayer behavior. The paired physical iPhone could not be reached; its connection was disconnected.
+| Item | Live readback |
+| --- | --- |
+| App Store version | `dc9baf9b-52ee-4aa9-9fc2-5dd687c42c75`, 26.10.01, WAITING_FOR_REVIEW, MANUAL |
+| Build | `17449e2d-f3f6-4e4c-a6c8-f2f8428ebbbf`, build 8, VALID, attached to the version |
+| Submission | [374458bd-3e54-4931-98a1-ff232a35a08a](https://appstoreconnect.apple.com/apps/6815504897/distribution/reviewsubmissions/details/374458bd-3e54-4931-98a1-ff232a35a08a), WAITING_FOR_REVIEW, one app item, no in-app purchases |
+| TestFlight | Build 8 is IN_BETA_TESTING in Private Testing, the existing internal group with exactly one tester; no external distribution |
+| English listing | Description, promotional text, keywords, URLs and What’s New read back and matched to the local free-access copy; review notes describe no purchases |
+| Screenshots | Six iPhone and six iPad replacement images COMPLETE; all twelve source checksums match reviewed exports |
+| Game Center | Enabled for 26.10.01 |
+| App price | USA base customer price 0.0, proceeds 0.0 |
+| Source | Strict gate and signed archive from clean committed `ef769a3` |
+| Signed IPA | Signature verified, version 26.10.01, build 8; SHA-256 `13825d12e291be58deadcdc6494f5055d022a3497907037cc6f5164aa3a7b388` |
+| Purchase removal | No StoreKit linkage, product IDs, bundled purchase catalog or Debug launch fixture in the IPA |
+| Website | Updated home/support/privacy pages deployed via GitHub Pages run `36955409136`; production files matched before the pending-update notice was added |
 
-Upload, final screenshot readback, physical smoke validation, App Review submission, and public availability remain pending. Local evidence is in ignored `artifacts/release-26.10.01/` and `/tmp/marblezzz-free-*`.
+Automated verification: 35 core test functions (including 60 seeded full-game cases), 25 native model tests, all 12 iPhone UI tests, and an unsigned Release device build passed. Both final native iPhone/iPad campaign capture runs passed, and twelve regenerated exports passed format and visual review. Local evidence is in ignored `artifacts/release-26.10.01/` and `/tmp/marblezzz-free-*`.
+
+## Remaining public-release steps
+
+1. Physical-device smoke check for build 8: pass-and-play start/resume, online entry, and all three finishes without purchase prompts. The paired iPhone was disconnected; the user was asked to test the private TestFlight build. No new physical-device result is claimed.
+2. Apple App Review approval.
+3. Remove availability of Friends (`6815509523`), Midnight walnut (`6815509582`), and Coastal oak (`6815509411`) before releasing the free update. These historical non-consumables currently remain approved/available; their records must be preserved, with sale availability retired rather than deleting purchase history.
+4. Release the approved version, read back public availability, remove the website's pending-update notice and update these records.
+
+The September submission is now COMPLETE and all its four items APPROVED. This supersedes the historical Waiting for Review snapshot below. Prior multi-account Game Center and physical-device sign-off does not substitute for this update's pending smoke check.
 
 ## Historical September release record
 

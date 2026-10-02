@@ -18,16 +18,11 @@ Apple permits up to ten screenshots per device size/localization. Upload each de
 
 The [generation record](assets/generation-prompts.json) contains exact prompts and provenance for the icon and decorative campaign art. Built-in image generation was used without API-key setup. App interface content in the screenshot campaign comes from actual captures. Contact sheets and the 1600 × 900 social image are presentation previews, not substitutes for the individual App Store screenshot files.
 
-## Copy and paid features
+## Copy and free access
 
 The sequence is teamwork, move preview, offline solo, pass-and-play, tutorial, and coordinated themes. Screenshots must show actual app use. Captions and surrounding artwork may frame the capture, but must not invent controls, alter the game state, or imply unavailable functionality. Use default or fictional player names. [Apple accurate-metadata requirements, 2.3.2–2.3.3 and 2.3.9](https://developer.apple.com/app-store/review/guidelines/#accurate-metadata).
 
-Keep these disclosures readable on the associated images:
-
-- Pass-and-play: **Pass-and-play requires the Friends purchase.**
-- Cosmetic themes: **Optional finishes sold separately.**
-
-The description additionally explains that every online player needs Friends access; one purchase covers everyone sharing a device for pass-and-play. Midnight walnut and Coastal oak each change the board, marble finish, and card-back color as one theme. They are separate from Friends and do not offer independent component selectors. Two to four people means the total human players, including the host.
+Every game mode and all three board finishes are included for everyone in 26.10.01. Paid-access disclosures have been removed. Midnight walnut and Coastal oak each change the board, marble finish, and card-back color together; there are no independent component selectors. Two to four people means the total human players, including the host.
 
 ## Listing fields
 
@@ -37,8 +32,8 @@ Copy only the `appStore` values from the JSON into their matching App Store Conn
 | --- | --- | --- |
 | Name | 9 characters | 30 |
 | Subtitle | 28 characters | 30 |
-| Promotional text | 160 characters | 170 |
-| Description | 1,309 characters | 4,000 |
+| Promotional text | 156 characters | 170 |
+| Description | 1,151 characters | 4,000 |
 | Keywords | 74 UTF-8 bytes | 100 bytes |
 
 Limits are from Apple's [app information](https://developer.apple.com/help/app-store-connect/reference/app-information/app-information) and [platform version information](https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information) references. The listing now uses the Marblezzz GitHub Pages home, support, and privacy URLs. Support contact: Marblezzz@mattp.me.
@@ -49,14 +44,14 @@ The new icon has a full square canvas without baked outer rounded corners. Its i
 
 ## Before publication
 
-Complete the existing [release checklist](release-checklist.md), including real Game Center matches, sandbox purchases/restores, publisher details, public support/privacy URLs, and signed-build validation. The listing's online-play sentence is conditional on passing those service gates. Do not add claims of proven live multiplayer, automatic background play, reliable timeout substitution, server-enforced anti-cheat, or cross-device syncing of local games. Promote Friends Family Sharing only after its App Store Connect configuration and device behavior are verified.
+Complete the existing [release checklist](release-checklist.md), including real Game Center matches, physical-device free-access smoke testing, publisher details, public support/privacy URLs, and signed-build validation. The listing's online-play sentence is conditional on passing those service gates. Do not add claims of proven live multiplayer, automatic background play, reliable timeout substitution, server-enforced anti-cheat, or cross-device syncing of local games.
 
 ## Final asset validation
 
 - All twelve numbered screenshots passed: six at 1320 × 2868 and six at 2064 × 2752. Each is an upright, opaque RGB PNG with sRGB encoding.
 - The new icon passed at 1024 × 1024, opaque RGB PNG with an sRGB profile. The included asset catalog contains the same image.
 - Listing text passed the field-length limits above. Public URLs are configured in the metadata JSON.
-- Both six-panel contact sheets and the launch banner were visually reviewed. The campaign preserves complete native captures; paid-feature disclosures are typeset outside the app UI.
+- Both six-panel contact sheets and the launch banner were visually reviewed. The campaign preserves complete native captures; all paid-access disclosures are removed.
 - Native capture runs passed on iPhone 18 Pro Max and iPad Pro 13-inch (M5). See [capture notes](tools/CAPTURE.md), [iPhone provenance](source-captures/iphone/provenance.json), and [iPad provenance](source-captures/ipad/provenance.json).
 - Capturing the large iPad revealed a portrait layout alignment issue. The game stack now fills the available width and centers its content; the final iPad images were recaptured after this fix. A subsequent unsigned generic iOS Release build succeeded.
 - The temporary capture test was removed and the Xcode project regenerated. Reusable capture and rendering tools remain in this package.
@@ -64,3 +59,9 @@ Complete the existing [release checklist](release-checklist.md), including real 
 On September 24, 2026, the signed 1.0 (1) build was uploaded and processed by Apple. Both six-image screenshot sets and English listing metadata are saved in App Store Connect. The website, support and privacy pages are live. See [publication status](PUBLICATION_STATUS.md) for verification and remaining device/service gates. Apple review and public App Store release have not occurred.
 
 Later that day, version 1.0 (2) was processed and added to the account holder's private TestFlight group. The twelve local screenshot exports were recaptured for the updated game table and validated, but this TestFlight update did not replace the App Store listing screenshots.
+
+On October 1, 2026, fresh iPhone/iPad captures and twelve free-access campaign
+exports replaced the 26.10.01 listing screenshots. Apple reports every image
+COMPLETE and all twelve source checksums match the reviewed local files. English
+description, promotional text, keywords, URLs, and What’s New were read back and
+matched to `metadata.en-US.json`. Prior publication statements above are historical.

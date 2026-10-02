@@ -51,7 +51,7 @@ Use the built app with Diagnostics open in Settings and two to four distinct Gam
 Purchase, restore, refund, revocation and Family Sharing tests are no longer applicable to build 8: it has no purchase system. Existing saves and selected finishes keep their storage keys and formats.
 
 - [ ] Validate free pass-and-play start/resume, online entry and all finishes on the updated physical-device build.
-- [ ] Submit 26.10.01 build 8 with the free-access listing and screenshots after validation.
+- [x] Submit 26.10.01 build 8 with the free-access listing and twelve refreshed screenshots after the strict local gate: submission `374458bd-3e54-4931-98a1-ff232a35a08a`, WAITING_FOR_REVIEW, manual release.
 
 - [x] Add publisher/support contact to the release copy and publish support/privacy URLs.
 - [x] Complete age rating, content rights and export-compliance declarations against the shipping app.
