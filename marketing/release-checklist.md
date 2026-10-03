@@ -7,7 +7,7 @@ Implementation, unsigned builds and simulator tests do not certify a commercial 
 - [x] Publishing team `V25M7FFAP2`; bundle ID `com.marblezzz.app` registered with Game Center; Marblezzz ASC app record `6815504897` created.
 - [x] Enable Game Center on the identifier and app record; create the App Store distribution profile and signed build.
 - [x] 26.10.01 removes all purchases and makes every mode and board finish available without entitlements.
-- [ ] Retire availability of the three historical non-consumables after the free update is ready for distribution.
+- [x] Retire sale availability of all three historical non-consumables on October 2: zero territories and future-territory availability disabled; records/history preserved.
 
 ## Game Center feasibility harness
 
@@ -50,8 +50,10 @@ Use the built app with Diagnostics open in Settings and two to four distinct Gam
 
 Purchase, restore, refund, revocation and Family Sharing tests are no longer applicable to build 8: it has no purchase system. Existing saves and selected finishes keep their storage keys and formats.
 
-- [ ] Validate free pass-and-play start/resume, online entry and all finishes on the updated physical-device build.
-- [x] Submit 26.10.01 build 8 with the free-access listing and twelve refreshed screenshots after the strict local gate: submission `374458bd-3e54-4931-98a1-ff232a35a08a`, WAITING_FOR_REVIEW, manual release.
+- [ ] Validate free pass-and-play start/resume, online entry and all finishes on the updated physical-device build. The isolated October 1 attempt failed during device authentication/runner initialization; no passing result is claimed. Publisher authorized release October 2.
+- [x] Submit 26.10.01 build 8 with the free-access listing and twelve refreshed screenshots after the strict local gate: submission `374458bd-3e54-4931-98a1-ff232a35a08a`, COMPLETE, app APPROVED. Publisher authorized manual release October 2; Apple reports READY_FOR_SALE / READY_FOR_DISTRIBUTION.
+
+- [x] Release approved 26.10.01 (8), with all modes/finishes free and historical purchases unavailable for sale.
 
 - [x] Add publisher/support contact to the release copy and publish support/privacy URLs.
 - [x] Complete age rating, content rights and export-compliance declarations against the shipping app.
@@ -60,6 +62,6 @@ Purchase, restore, refund, revocation and Family Sharing tests are no longer app
 - [x] Archive signed Release and upload to TestFlight; Apple processed 1.0 builds 1 through 6, 26.09.01 build 7 and 26.10.01 build 8 as VALID. Build 8 is in internal beta testing.
 - [x] Keep private internal TestFlight access for the account holder only; the one-tester Private Testing group contains builds 1 through 8.
 - [ ] Collect inventor/friend feedback and resolve findings.
-- [ ] Submit for App Review only after all release gates pass.
+- [x] Submit 26.09.01 build 7 and all three first purchases together for App Review after the user's test sign-off; submission `81609297-b53e-4a74-b9d6-62b216c2aac0` is COMPLETE with all four items APPROVED; 26.09.01 (7) is READY_FOR_SALE. Detailed results for unchecked gates have not been recorded here.
 
-See [ASC_STATUS.md](PUBLICATION_STATUS.md) for the created Apple records, processed build, published website and evidence. Unchecked gates remain unverified.
+See [PUBLICATION_STATUS.md](PUBLICATION_STATUS.md) for the created Apple records, processed build, published website and evidence. Unchecked gates remain unverified.

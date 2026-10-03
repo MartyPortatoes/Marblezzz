@@ -8,7 +8,7 @@
 - Unsigned generic iOS Release build.
 - Fresh iPhone 6.9-inch and iPad 13-inch native campaign capture. The included finish selector is exercised without StoreKit Test.
 
-The physical iPhone is paired but disconnected; no updated physical-device result is claimed. Live multi-account Game Center, iOS 18, VoiceOver and Instruments results remain separate from this local regression evidence. The strict gate passed against clean committed source `ef769a3`. Signed App Store archive and IPA export passed. The extracted IPA signature verified; version/build are 26.10.01 (8). It has no StoreKit linkage, legacy product IDs, bundled purchase catalog, or Debug launch fixture. IPA SHA-256: `13825d12e291be58deadcdc6494f5055d022a3497907037cc6f5164aa3a7b388`.
+The isolated physical-device attempt ended with authentication cancellation and a lost test-runner connection; no updated passing physical-device result is claimed. Live multi-account Game Center, iOS 18, VoiceOver and Instruments results remain separate from this local regression evidence. The strict gate passed against clean committed source `ef769a3`. Signed App Store archive and IPA export passed. The extracted IPA signature verified; version/build are 26.10.01 (8). It has no StoreKit linkage, legacy product IDs, bundled purchase catalog, or Debug launch fixture. IPA SHA-256: `13825d12e291be58deadcdc6494f5055d022a3497907037cc6f5164aa3a7b388`.
 
 ## Historical verification
 
@@ -64,9 +64,13 @@ still installed. To preserve its app and saves, an isolated `com.marblezzz.app.q
 development build was created from tested source `ef769a3`, with only bundle IDs,
 signing team and display name changed. App version/build remain 26.10.01 (8).
 
-The device build and provisioning completed. Xcode is waiting for the locked
-phone to be unlocked before launching two free-access model tests and three UI
-checks (all finishes/persistence, online entry, and pass-and-play hand privacy).
-This is a pending run, not a passed device test. Its live xcodebuild process was
-verified running; log: ignored `artifacts/release-26.10.01/physical-qa.log`. The
-result bundle will be `/tmp/marblezzz-physical-free-tests.xcresult`.
+The device build and provisioning completed. The run initially waited for the
+locked phone, then ended at 10:58 PM Eastern with `com.apple.LocalAuthentication`
+code -2 (authentication canceled) and a lost test-runner connection. No passing
+device test is claimed. Log: ignored `artifacts/release-26.10.01/physical-qa.log`;
+result bundle: `/tmp/marblezzz-physical-free-tests.xcresult`.
+
+On October 2, the publisher reviewed the work and authorized publication. Apple
+approved the app, accepted its release request, and reports 26.10.01 (8) as
+READY_FOR_SALE / READY_FOR_DISTRIBUTION. This authorization and App Review approval
+do not replace missing per-case physical-device evidence.
