@@ -1,6 +1,6 @@
 # Free update published — October 2, 2026
 
-Marblezzz **26.10.01 (8)** removes every paywall and was released October 2, 2026 at approximately 9:28 PM Eastern, after Apple approved submission `374458bd-3e54-4931-98a1-ff232a35a08a`. The publisher reviewed the work and explicitly authorized publication. Apple accepted the manual release request and readback reports **READY_FOR_SALE / READY_FOR_DISTRIBUTION**. The public listing is being checked for propagation. [App Store](https://apps.apple.com/us/app/marblezzz/id6815504897).
+Marblezzz **26.10.01 (8)** removes every paywall and was released October 2, 2026 at 9:28:17 PM Eastern, after Apple approved submission `374458bd-3e54-4931-98a1-ff232a35a08a`. The publisher reviewed the work and explicitly authorized publication. Apple accepted the manual release request and readback reports **READY_FOR_SALE / READY_FOR_DISTRIBUTION**. The public US App Store lookup now reports **26.10.01**, price **0.0**, the free-access description and release notes, with release time `2026-10-03T01:28:17Z`. [App Store](https://apps.apple.com/us/app/marblezzz/id6815504897).
 
 Solo, pass-and-play, private Game Center play, Original maple, Midnight walnut, and Coastal oak are included. The former shop is an included-finish picker; StoreKit services, product IDs, entitlement checks, restore flows, and the local purchase catalog are removed. Save formats and the `boardTheme` key are preserved.
 
@@ -19,7 +19,7 @@ Solo, pass-and-play, private Game Center play, Original maple, Midnight walnut, 
 | Source | Strict gate and signed archive from clean committed `ef769a3` |
 | Signed IPA | Signature verified, version 26.10.01, build 8; SHA-256 `13825d12e291be58deadcdc6494f5055d022a3497907037cc6f5164aa3a7b388` |
 | Purchase removal | No StoreKit linkage, product IDs, bundled purchase catalog or Debug launch fixture in the IPA |
-| Website | Home/support copy updated for the published free version, with App Store download links; deployment verification pending |
+| Website | Free-version home/support copy and App Store download links deployed successfully in [Pages run 37086334587](https://github.com/MartyPortatoes/Marblezzz/actions/runs/37086334587); home, support and privacy production bytes all match local files |
 | Historical purchases | Friends, Midnight walnut and Coastal oak retired from sale; each has zero available territories and `availableInNewTerritories: false`. Product records and purchase history preserved |
 
 Automated verification: 35 core test functions (including 60 seeded full-game cases), 25 native model tests, all 12 iPhone UI tests, and an unsigned Release device build passed. Both final native iPhone/iPad campaign capture runs passed, and twelve regenerated exports passed format and visual review. Local evidence is in ignored `artifacts/release-26.10.01/` and `/tmp/marblezzz-free-*`.

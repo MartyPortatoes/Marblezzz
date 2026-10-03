@@ -74,3 +74,8 @@ On October 2, the publisher reviewed the work and authorized publication. Apple
 approved the app, accepted its release request, and reports 26.10.01 (8) as
 READY_FOR_SALE / READY_FOR_DISTRIBUTION. This authorization and App Review approval
 do not replace missing per-case physical-device evidence.
+
+Public US App Store lookup confirmed version 26.10.01, price 0.0, free-access
+description/release notes, and release time `2026-10-03T01:28:17Z`. GitHub Pages
+run `37086334587` succeeded; published home, support and privacy pages each
+matched their local files byte for byte.
